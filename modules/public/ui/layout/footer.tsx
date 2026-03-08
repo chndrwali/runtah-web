@@ -49,10 +49,10 @@ export const Footer = () => {
               </li>
               <li>
                 <Link
-                  href="#"
+                  href="#fitur"
                   className="hover:text-primary-foreground transition-colors"
                 >
-                  Pusat Bantuan
+                  Fitur
                 </Link>
               </li>
             </ul>
