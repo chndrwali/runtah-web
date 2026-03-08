@@ -2,11 +2,6 @@ import { ScanResultSection } from "@/modules/public/ui/sections/scan-result-sect
 import { caller, HydrateClient, prefetch, trpc } from "@/trpc/server";
 import { Metadata } from "next";
 
-export const metadata: Metadata = {
-  title: "Hasil Klasifikasi AI ",
-  description: "Hasil scan kategori sampah dari AI",
-};
-
 interface PageProps {
   params: Promise<{ id: string }>;
 }
@@ -20,17 +15,17 @@ export async function generateMetadata({
     const ai = await caller.trash.getScanById({ id });
 
     return {
-      title: ai.aiCategory,
+      title: `Hasil Klasifikasi AI ${ai.aiCategory}`,
       description: ai.status,
       openGraph: {
-        title: ai.aiCategory,
+        title: `Hasil Klasifikasi AI ${ai.aiCategory}`,
         description: ai.status,
         url: `/user/ai/${id}`,
         images: ai.imageUrl ? [ai.imageUrl] : [],
       },
       twitter: {
         card: "summary_large_image",
-        title: ai.aiCategory,
+        title: `Hasil Klasifikasi AI ${ai.aiCategory}`,
         description: ai.status,
         images: ai.imageUrl ? [ai.imageUrl] : [],
       },
