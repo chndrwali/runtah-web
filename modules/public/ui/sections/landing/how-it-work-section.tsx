@@ -9,9 +9,10 @@ interface HowItWorkBodyProps {
     title: string;
     desc: string;
   };
+  index: number;
 }
 
-const HowItWorkBody = ({ feature }: HowItWorkBodyProps) => {
+const HowItWorkBody = ({ feature, index }: HowItWorkBodyProps) => {
   return (
     <div className="w-full md:w-1/2 lg:w-1/3 px-4 md:px-12 gsap-reveal">
       <div className="flex flex-wrap justify-between">
@@ -24,7 +25,7 @@ const HowItWorkBody = ({ feature }: HowItWorkBodyProps) => {
         />
         <div className="w-full mt-2 lg:mt-6">
           <h3 className="text-xl font-bold text-dark mb-2 md:text-2xl">
-            {feature.title}
+            {index + 1}. {feature.title}
           </h3>
           <p className="font-medium text-dark">{feature.desc}</p>
         </div>
@@ -35,30 +36,36 @@ const HowItWorkBody = ({ feature }: HowItWorkBodyProps) => {
 
 const data = [
   {
-    image: "/img/steps/step-1.png",
+    image: "/img/steps/step-1.webp",
     title: "Pilih Gambar",
     desc: "Pilih gambar sampah yang ingin diklasifikasikan.",
   },
   {
-    image: "/img/steps/step-2.png",
+    image: "/img/steps/step-2.webp",
     title: "Klasifikasikan",
     desc: "Model Machine Learning akan mengklasifikasikan sampah yang dipilih berdasarkan 12 jenis sampah.",
   },
   {
-    image: "/img/steps/step-3.png",
+    image: "/img/steps/step-3.webp",
     title: "Hasil Klasifikasi",
     desc: "Hasil klasifikasi akan ditampilkan berupa jenis dan kategori sampah, serta persentase kecocokan.",
   },
 ];
 
 export const HowItWorkSection = () => {
-  const containerRef = useGsapReveal<HTMLElement>({ stagger: 0.15 });
+  const containerRef = useGsapReveal<HTMLElement>({
+    stagger: 0.2,
+    y: 30,
+    x: 20,
+    duration: 1,
+    ease: "power4.out",
+  });
 
   return (
     <section id="cara-kerja" ref={containerRef} className="py-10">
       <div className="container">
         <div className="flex flex-wrap justify-center gsap-reveal">
-          <h2 className="text-2xl  font-bold text-center w-full mb-6 md:text-3xl lg:text-5xl">
+          <h2 className="text-2xl  font-bold text-center w-full mb-6 md:text-3xl lg:text-4xl">
             Bagaimana Cara Menggunakan AI Klasifikasi Sampah?
           </h2>
           <p className="w-full font-medium text-center mb-10 lg:leading-relaxed lg:w-2/3 lg:text-lg">
@@ -69,7 +76,7 @@ export const HowItWorkSection = () => {
         </div>
         <div className="flex flex-wrap gap-y-10 lg:gap-y-2">
           {data.map((feature, index) => (
-            <HowItWorkBody key={index} feature={feature} />
+            <HowItWorkBody key={index} feature={feature} index={index} />
           ))}
         </div>
       </div>

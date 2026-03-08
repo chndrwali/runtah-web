@@ -4,7 +4,12 @@ import Image from "next/image";
 import { useGsapReveal } from "@/hooks/use-gsap-reveal";
 
 export const HeroSection = () => {
-  const containerRef = useGsapReveal<HTMLElement>({ stagger: 0.2 });
+  const containerRef = useGsapReveal<HTMLElement>({
+    stagger: 0.15,
+    y: 30,
+    duration: 1,
+    ease: "back.out(1.5)",
+  });
 
   return (
     <section
@@ -37,7 +42,7 @@ export const HeroSection = () => {
             <div className="aspect-square bg-primary/20 rounded-full absolute -top-10 -right-10 w-64 h-64 blur-3xl opacity-50"></div>
             <Image
               src="/img/hero.webp"
-              className="absolute w-28 top-1/3 right-0 translate-x-1/3 sm:w-36 md:w-48 md:top-[40%] md:-right-4 lg:w-64 lg:-right-8 z-20 drop-shadow-2xl"
+              className="absolute w-28 top-1/3 right-0 translate-x-1/3 sm:w-36 md:w-48 md:top-[40%] md:-right-4 lg:w-56 xl:w-60 lg:-right-8 z-20 drop-shadow-2xl"
               alt="Robot"
               width={300}
               height={300}

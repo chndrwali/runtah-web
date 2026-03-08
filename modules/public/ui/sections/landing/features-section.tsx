@@ -4,7 +4,12 @@ import { Focus, Gift, MapPin } from "lucide-react";
 import { useGsapReveal } from "@/hooks/use-gsap-reveal";
 
 export const FeaturesSection = () => {
-  const containerRef = useGsapReveal<HTMLElement>({ stagger: 0.1 });
+  const containerRef = useGsapReveal<HTMLElement>({
+    stagger: 0.15,
+    y: 40,
+    duration: 0.9,
+    ease: "back.out(1.7)",
+  });
 
   return (
     <section ref={containerRef} className="py-12">

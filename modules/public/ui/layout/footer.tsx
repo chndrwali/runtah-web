@@ -1,13 +1,25 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
+import { useGsapReveal } from "@/hooks/use-gsap-reveal";
 
 export const Footer = () => {
+  const containerRef = useGsapReveal<HTMLElement>({
+    stagger: 0.15,
+    y: 30,
+    duration: 0.8,
+  });
+
   return (
-    <footer className="bg-dark-teal text-primary-foreground py-16">
+    <footer
+      ref={containerRef}
+      className="bg-dark-teal text-primary-foreground py-16"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
           {/* Brand & Description */}
-          <div className="md:col-span-2 space-y-4">
+          <div className="md:col-span-2 space-y-4 gsap-reveal">
             <Link href="/" className="inline-flex items-center space-x-2">
               <Image
                 alt="Logo"
@@ -28,7 +40,7 @@ export const Footer = () => {
           </div>
 
           {/* Quick Links */}
-          <div className="space-y-4">
+          <div className="space-y-4 gsap-reveal">
             <h4 className="text-lg font-bold">Tautan Cepat</h4>
             <ul className="space-y-2 text-sm text-primary-foreground/80">
               <li>
@@ -59,7 +71,7 @@ export const Footer = () => {
           </div>
 
           {/* Socials */}
-          <div className="space-y-4">
+          <div className="space-y-4 gsap-reveal">
             <h4 className="text-lg font-bold">Sosial Media</h4>
             <ul className="space-y-2 text-sm text-primary-foreground/80">
               <li>
@@ -97,7 +109,7 @@ export const Footer = () => {
         </div>
 
         {/* Bottom Bar */}
-        <div className="flex flex-col md:flex-row justify-between items-center border-t border-primary-foreground/20 pt-8 text-sm text-primary-foreground/70">
+        <div className="flex flex-col md:flex-row justify-between items-center border-t border-primary-foreground/20 pt-8 text-sm text-primary-foreground/70 gsap-reveal">
           <div className="flex flex-col items-center md:items-start text-center md:text-left gap-1">
             <p>
               &copy; {new Date().getFullYear()} Runtah Bdg. Hak Cipta Dilindungi

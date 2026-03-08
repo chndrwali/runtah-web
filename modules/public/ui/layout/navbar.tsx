@@ -28,7 +28,7 @@ export const LandingNavbar = () => {
         <NavbarLogo />
         <NavItems items={navPublics} />
         <div className="flex items-center gap-4">
-          <NavbarButton href="'/" variant="primary">
+          <NavbarButton href="/login" variant="gradient">
             Masuk
           </NavbarButton>
           <ThemeModeToggle variant="public" />
@@ -67,7 +67,7 @@ export const LandingNavbar = () => {
             );
           })}
           <div className="flex w-full flex-col gap-4">
-            <NavbarButton href="'/" variant="primary">
+            <NavbarButton href="/login" variant="gradient">
               Masuk
             </NavbarButton>
             <div className="w-full flex justify-center">
