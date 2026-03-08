@@ -43,6 +43,8 @@ export const authRouter = createTRPCRouter({
           appGoal: input.appGoal,
           area: input.area,
           address: input.address,
+          lat: input.lat,
+          lng: input.lng,
           notificationsEnabled: input.notificationsEnabled,
           onboardingCompleted: true,
         },

@@ -31,6 +31,8 @@ export const onboardingSchema = z.object({
   appGoal: z.string().min(1, "Harap pilih tujuan penggunaan"),
   area: z.string().min(1, "Harap pilih area / kecamatan tempat tinggal"),
   address: z.string().min(10, "Detail alamat penjemputan minimal 10 karakter"),
+  lat: z.number().optional(),
+  lng: z.number().optional(),
   notificationsEnabled: z.boolean().default(false),
 });
 

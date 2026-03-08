@@ -34,6 +34,8 @@ model User {
   phone                String?   // Dari Halaman Profil
   area                 String?   // Dari Onboarding Step 2 (misal: "Coblong")
   address              String?   // Dari Onboarding Step 2 (Detail Alamat Penjemputan)
+  lat                  Float?    // Penanda Lokasi (Latitude)
+  lng                  Float?    // Penanda Lokasi (Longitude)
   appGoal              String?   // Dari Onboarding Step 1 (Tujuan pakai Robah)
   notificationsEnabled Boolean   @default(false) // Dari Onboarding Step 3
   onboardingCompleted  Boolean   @default(false) // Flagging biar user lama ga kena onboarding lagi

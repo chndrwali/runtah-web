@@ -84,7 +84,7 @@ export function OnboardingForm({ initialName }: { initialName?: string }) {
         await updateUser({
           name: variables.name,
         });
-        appToast.success("Selamat datang di Runtah! 🎉");
+        appToast.success("Selamat datang di Robah! 🎉");
         router.push("/onboarding/redirect");
       },
       onError: (error) => {
@@ -112,7 +112,7 @@ export function OnboardingForm({ initialName }: { initialName?: string }) {
               <StepContent stepIndex={0}>
                 <div className="mb-8">
                   <h1 className="text-3xl font-bold text-slate-900 dark:text-slate-100 mb-2">
-                    Selamat Datang di Runtah! 👋
+                    Selamat Datang di Robah, Wargi Bandung! 👋
                   </h1>
                   <p className="text-slate-500 dark:text-zinc-400">
                     Apa tujuan utamamu menggunakan aplikasi ini?
@@ -296,8 +296,14 @@ export function OnboardingForm({ initialName }: { initialName?: string }) {
                     </FormLabel>
                     <LocationPicker
                       onLocationSelect={(lat, lng) => {
-                        console.log(`Terpilih lokasi: ${lat}, ${lng}`);
-                        // Nanti kalau DB Schema punya field lat lng, bs dimasukkan ke form state juga
+                        form.setValue("lat", lat, {
+                          shouldValidate: true,
+                          shouldDirty: true,
+                        });
+                        form.setValue("lng", lng, {
+                          shouldValidate: true,
+                          shouldDirty: true,
+                        });
                       }}
                     />
                     <p className="text-xs text-muted-foreground mt-1">
@@ -395,18 +401,23 @@ export function OnboardingForm({ initialName }: { initialName?: string }) {
 
       if (currentStep === 1) {
         const result = onboardingSchema
-          .pick({ area: true, address: true })
-          .safeParse({ area: values.area, address: values.address });
+          .pick({ area: true, address: true, lat: true, lng: true })
+          .safeParse({
+            area: values.area,
+            address: values.address,
+            lat: values.lat,
+            lng: values.lng,
+          });
 
         if (!result.success) {
-          form.clearErrors(["area", "address"]);
+          form.clearErrors(["area", "address", "lat", "lng"]);
           result.error.issues.forEach((issue) => {
-            const field = issue.path[0] as "area" | "address";
+            const field = issue.path[0] as "area" | "address" | "lat" | "lng";
             form.setError(field, { message: issue.message });
           });
           return false;
         }
-        form.clearErrors(["area", "address"]);
+        form.clearErrors(["area", "address", "lat", "lng"]);
         return true;
       }
 

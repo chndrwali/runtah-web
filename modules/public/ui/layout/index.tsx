@@ -1,5 +1,5 @@
-import AppSidebar from "@/modules/admin/ui/layout/app-sidebar";
-import Header from "@/modules/admin/ui/layout/header";
+import AppSidebar from "@/modules/public/ui/layout/app-sidebar";
+import Header from "@/modules/public/ui/layout/header";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { cookies } from "next/headers";
 
