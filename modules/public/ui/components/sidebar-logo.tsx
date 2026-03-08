@@ -16,6 +16,7 @@ import {
 import { ChevronsDown } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+import gsap from "gsap";
 
 export const SidebarLogo = () => {
   const { state } = useSidebar();
@@ -72,9 +73,10 @@ export const SidebarLogo = () => {
               >
                 <Image
                   alt="Logo"
-                  src="/img/logo/favicon-32x-32.png"
-                  className="size-4"
-                  fill
+                  src="/img/logo/android-chrome-192x192.png"
+                  className="size-5"
+                  width={20}
+                  height={20}
                 />
               </div>
               <div
