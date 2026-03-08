@@ -42,6 +42,11 @@ import {
   Cpu,
   FolderGit2,
   Mail,
+  Home,
+  Focus,
+  Map,
+  History,
+  Gift,
 } from "lucide-react";
 
 export type Icon = React.ComponentType<LucideProps>;
@@ -104,6 +109,11 @@ export const DiscordIcon = (props: React.SVGProps<SVGSVGElement>) => (
 
 export const Icons = {
   dashboard: LayoutDashboard,
+  home: Home,
+  scan: Focus,
+  map: Map,
+  history: History,
+  point: Gift,
   logo: Command,
   close: X,
   product: Box,
