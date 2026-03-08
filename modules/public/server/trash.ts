@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { createTRPCRouter, protectedProcedure } from "@/trpc/init";
 import prisma from "@/lib/prisma";
+import { TRPCError } from "@trpc/server";
 
 export const trashRouter = createTRPCRouter({
   saveScan: protectedProcedure
@@ -26,8 +27,17 @@ export const trashRouter = createTRPCRouter({
   getScanById: protectedProcedure
     .input(z.object({ id: z.string() }))
     .query(async ({ input }) => {
-      return prisma.trashTransaction.findUnique({
+      const scan = await prisma.trashTransaction.findUnique({
         where: { id: input.id },
       });
+
+      if (!scan) {
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "Scan tidak ditemukan",
+        });
+      }
+
+      return scan;
     }),
 });
