@@ -4,7 +4,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { format } from "date-fns";
 import { id } from "date-fns/locale";
 import Image from "next/image";
-import { TrashTransaction } from "@prisma/client";
+import { TrashTransaction } from "@/app/generated/prisma/client";
 
 export const columns: ColumnDef<TrashTransaction>[] = [
   {
