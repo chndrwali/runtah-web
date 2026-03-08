@@ -12,17 +12,35 @@ export const ProblemGoalsSection = () => {
 
   return (
     <section
+      id="about"
       ref={containerRef}
       className="py-20 lg:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
     >
+      {/* Filosofi */}
+      <div className="text-center max-w-4xl mx-auto mb-24 gsap-reveal">
+        <h1 className="text-5xl lg:text-7xl font-extrabold text-foreground mb-6">
+          Filosofi <span className="text-primary">Robah</span>
+        </h1>
+        <p className="text-xl lg:text-2xl text-primary leading-relaxed font-semibold italic mb-6">
+          &quot;Robah berarti Berubah atau Mengubah dalam kosa kata bahasa
+          Sunda.&quot;
+        </p>
+        <p className="text-lg lg:text-xl text-muted-foreground leading-relaxed max-w-3xl mx-auto">
+          Makna ini selaras dengan <i>core loop</i> aplikasi kami: Mengubah
+          kebiasaan buruk menjadi aksi lingkungan yang nyata, mengubah tumpukan
+          sampah menjadi poin yang bermanfaat, serta mengubah barang bekas
+          menjadi sebuah berkah.
+        </p>
+      </div>
+
       {/* Overview */}
       <div className="text-center max-w-3xl mx-auto mb-20 gsap-reveal">
-        <h1 className="text-4xl lg:text-5xl font-extrabold text-foreground mb-6">
+        <h2 className="text-3xl lg:text-4xl font-extrabold text-foreground mb-6">
           Visi Kami untuk Bandung
-        </h1>
+        </h2>
         <div className="h-1 w-20 bg-primary mx-auto rounded-full mb-8"></div>
         <p className="text-lg lg:text-xl text-muted-foreground leading-relaxed">
-          Di balik Runtah, terdapat dedikasi untuk menciptakan lingkungan yang
+          Di balik Robah, terdapat dedikasi untuk menciptakan lingkungan yang
           lebih bersih serta mempermudah masyarakat dalam berpartisipasi menjaga
           kelestarian bumi melalui pemilahan sampah yang tepat.
         </p>
@@ -36,11 +54,12 @@ export const ProblemGoalsSection = () => {
           </div>
           <h2 className="text-2xl font-bold text-foreground mb-4">Masalah</h2>
           <p className="text-muted-foreground leading-relaxed">
-            Isu persampahan di Bandung sering kali menjadi problem pelik
-            (mengingat krisis TPA Sarimukti). Sebenarnya, banyak warga yang
-            sudah memiliki kesadaran dan ingin mulai memilah sampah anorganik,
-            namun terkendala kebingungan mencari akses ke Bank Sampah terdekat
-            atau merasa enggan untuk mengantarkannya secara mandiri.
+            Isu persampahan di kota Bandung sering kali menjadi problematika
+            yang pelik, di mana krisis TPA Sarimukti menjadi pengingat nyata. Di
+            sisi lain, antusiasme warga untuk memilah sampah pada dasarnya cukup
+            tinggi, namun sering kali terkendala oleh sulitnya akses informasi
+            ke Bank Sampah terdekat serta rasa enggan untuk mengantarkannya
+            secara mandiri.
           </p>
         </div>
 
@@ -51,11 +70,11 @@ export const ProblemGoalsSection = () => {
           </div>
           <h2 className="text-2xl font-bold text-foreground mb-4">Tujuan</h2>
           <p className="text-muted-foreground leading-relaxed">
-            Hadir sebagai jembatan yang menghubungkan rumah tangga secara
-            langsung dengan pengelola Bank Sampah lokal. Warga dapat dengan
-            mudah mengklasifikasi jenis sampahnya melalui teknologi AI via web,
-            dan selanjutnya meminta penjemputan (pickup) tanpa repot keluar
-            rumah.
+            Hadir sebagai jembatan inovatif yang menghubungkan rumah tangga
+            secara langsung dengan pengelola Bank Sampah lokal. Melalui web ini,
+            warga dapat mengklasifikasikan jenis sampahnya menggunakan AI, lalu
+            mengajukan permintaan penjemputan (<i>pickup</i>) dengan praktis,
+            tanpa harus keluar rumah.
           </p>
         </div>
       </div>

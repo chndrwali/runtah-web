@@ -29,8 +29,8 @@ const fontMono = IBM_Plex_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(config.env.nextPublicUrl),
   title: {
-    default: "Runtah - Bandung Bersih, Mulai dari Genggamanmu",
-    template: "%s | Runtah",
+    default: "Robah - Bandung Bersih, Mulai dari Genggamanmu",
+    template: "%s | Robah",
   },
   description:
     "Wujudkan kota yang lebih hijau dengan klasifikasi sampah berbasis AI.",

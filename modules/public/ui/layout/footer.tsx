@@ -12,10 +12,7 @@ export const Footer = () => {
   });
 
   return (
-    <footer
-      ref={containerRef}
-      className="bg-dark-teal text-primary-foreground py-16"
-    >
+    <footer ref={containerRef} className="bg-dark-teal text-white py-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
           {/* Brand & Description */}
@@ -29,10 +26,10 @@ export const Footer = () => {
                 height={32}
               />
               <span className="text-2xl font-extrabold tracking-tight">
-                Runtah
+                Robah
               </span>
             </Link>
-            <p className="text-primary-foreground/80 max-w-md leading-relaxed text-sm lg:text-base">
+            <p className="text-white/80 max-w-md leading-relaxed text-sm lg:text-base">
               Wujudkan kota Bandung yang lebih bersih dan hijau melalui
               klasifikasi sampah berbasis AI yang cerdas. Mari wujudkan
               lingkungan yang lebih sehat untuk masa depan.
@@ -42,11 +39,11 @@ export const Footer = () => {
           {/* Quick Links */}
           <div className="space-y-4 gsap-reveal">
             <h4 className="text-lg font-bold">Tautan Cepat</h4>
-            <ul className="space-y-2 text-sm text-primary-foreground/80">
+            <ul className="space-y-2 text-sm text-white/80">
               <li>
                 <Link
                   href="/about"
-                  className="hover:text-primary-foreground transition-colors"
+                  className="hover:text-white transition-colors"
                 >
                   Tentang Kami
                 </Link>
@@ -54,7 +51,7 @@ export const Footer = () => {
               <li>
                 <Link
                   href="#cara-kerja"
-                  className="hover:text-primary-foreground transition-colors"
+                  className="hover:text-white transition-colors"
                 >
                   Cara Kerja
                 </Link>
@@ -62,9 +59,17 @@ export const Footer = () => {
               <li>
                 <Link
                   href="#fitur"
-                  className="hover:text-primary-foreground transition-colors"
+                  className="hover:text-white transition-colors"
                 >
                   Fitur
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="#kategori"
+                  className="hover:text-white transition-colors"
+                >
+                  Kategori Sampah
                 </Link>
               </li>
             </ul>
@@ -73,13 +78,13 @@ export const Footer = () => {
           {/* Socials */}
           <div className="space-y-4 gsap-reveal">
             <h4 className="text-lg font-bold">Sosial Media</h4>
-            <ul className="space-y-2 text-sm text-primary-foreground/80">
+            <ul className="space-y-2 text-sm text-white/80">
               <li>
                 <Link
                   href="https://instagram.com/chndrwali"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-primary-foreground transition-colors"
+                  className="hover:text-white transition-colors"
                 >
                   Instagram
                 </Link>
@@ -89,7 +94,7 @@ export const Footer = () => {
                   href="https://twitter.com/chndrwali"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-primary-foreground transition-colors"
+                  className="hover:text-white transition-colors"
                 >
                   Twitter X
                 </Link>
@@ -99,7 +104,7 @@ export const Footer = () => {
                   href="https://facebook.com/chndrwali"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-primary-foreground transition-colors"
+                  className="hover:text-white transition-colors"
                 >
                   Facebook
                 </Link>
@@ -109,7 +114,7 @@ export const Footer = () => {
         </div>
 
         {/* Bottom Bar */}
-        <div className="flex flex-col md:flex-row justify-between items-center border-t border-primary-foreground/20 pt-8 text-sm text-primary-foreground/70 gsap-reveal">
+        <div className="flex flex-col md:flex-row justify-between items-center border-t border-white/20 pt-8 text-sm text-white/70 gsap-reveal">
           <div className="flex flex-col items-center md:items-start text-center md:text-left gap-1">
             <p>
               &copy; {new Date().getFullYear()} Runtah Bdg. Hak Cipta Dilindungi
@@ -121,23 +126,17 @@ export const Footer = () => {
                 href="https://chndrwali.vercel.app"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="underline hover:text-primary-foreground transition-colors"
+                className="underline hover:text-white transition-colors"
               >
                 Candra Wali Sanjaya
               </Link>
             </p>
           </div>
           <div className="flex space-x-6 mt-4 md:mt-0">
-            <Link
-              href="#"
-              className="hover:text-primary-foreground transition-colors"
-            >
+            <Link href="#" className="hover:text-white transition-colors">
               Kebijakan Privasi
             </Link>
-            <Link
-              href="#"
-              className="hover:text-primary-foreground transition-colors"
-            >
+            <Link href="#" className="hover:text-white transition-colors">
               Syarat & Layanan
             </Link>
           </div>

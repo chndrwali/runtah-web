@@ -17,17 +17,17 @@ const HowItWorkBody = ({ feature, index }: HowItWorkBodyProps) => {
     <div className="w-full md:w-1/2 lg:w-1/3 px-4 md:px-12 gsap-reveal">
       <div className="flex flex-wrap justify-between">
         <Image
-          className="w-full h-[200px] object-scale-down border-[3px] border-primary rounded-xl"
+          className="w-full h-[200px] rounded-xl"
           src={feature.image}
           alt={feature.title}
           width={300}
           height={300}
         />
         <div className="w-full mt-2 lg:mt-6">
-          <h3 className="text-xl font-bold text-dark mb-2 md:text-2xl">
+          <h3 className="text-xl font-bold mb-2 md:text-2xl">
             {index + 1}. {feature.title}
           </h3>
-          <p className="font-medium text-dark">{feature.desc}</p>
+          <p className="font-medium text-muted-foreground">{feature.desc}</p>
         </div>
       </div>
     </div>
@@ -65,10 +65,14 @@ export const HowItWorkSection = () => {
     <section id="cara-kerja" ref={containerRef} className="py-10">
       <div className="container">
         <div className="flex flex-wrap justify-center gsap-reveal">
-          <h2 className="text-2xl  font-bold text-center w-full mb-6 md:text-3xl lg:text-4xl">
-            Bagaimana Cara Menggunakan AI Klasifikasi Sampah?
-          </h2>
-          <p className="w-full font-medium text-center mb-10 lg:leading-relaxed lg:w-2/3 lg:text-lg">
+          <div className="text-center flex flex-col">
+            <h2 className="text-2xl font-bold text-center w-full mb-6 md:text-3xl lg:text-4xl">
+              Bagaimana Cara Menggunakan AI Klasifikasi Sampah?
+            </h2>
+            <div className="h-1 w-20 bg-primary mx-auto rounded-full"></div>
+          </div>
+
+          <p className="w-full text-muted-foreground font-medium text-center mb-10 lg:leading-relaxed lg:w-2/3 lg:text-lg">
             Dengan AI, klasifikasi sampah menjadi lebih mudah dan cepat. Cukup
             mengambil gambar sampahmu, dan AI akan mengidentifikasi jenis sampah
             dengan akurat.

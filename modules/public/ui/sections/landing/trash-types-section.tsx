@@ -7,7 +7,7 @@ export const TrashTypesSection = () => {
   const containerRef = useGsapReveal<HTMLElement>({ stagger: 0.15 });
 
   return (
-    <section ref={containerRef} className="py-12 ">
+    <section id="kategori" ref={containerRef} className="py-12 ">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row items-center gap-12 lg:gap-20">
           {/* Left Content: Text */}
