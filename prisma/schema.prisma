@@ -131,7 +131,7 @@ model TrashTransaction {
   userId        String
   
   // Data dari AI Scanner
-  imageUrl      String?  // URL gambar dari Supabase Storage
+  imageUrl      String?  // URL gambar dari Uploadthing
   aiCategory    String   // Hasil tebakan AI (misal: "Botol Plastik PET")
   aiAccuracy    Float    // Persentase keyakinan (misal: 96.5)
   
