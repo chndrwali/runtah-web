@@ -1,6 +1,13 @@
 import { SearchItem } from "@/modules/admin/ui/config/search-config";
 import { NavItem } from "@/types";
-import { Focus, Gift, History, Home, MapIcon, User } from "lucide-react";
+import {
+  Focus,
+  Gift,
+  History,
+  LayoutDashboard,
+  MapIcon,
+  User,
+} from "lucide-react";
 
 export const navPublics = [
   {
@@ -15,9 +22,9 @@ export const navPublics = [
 
 export const navItems: NavItem[] = [
   {
-    title: "Beranda",
+    title: "Dashboard",
     url: "/user",
-    icon: "home",
+    icon: "dashboard",
     isActive: false,
     shortcut: ["d", "d"],
     items: [],
@@ -55,10 +62,10 @@ export const navItems: NavItem[] = [
 export const searchItems: SearchItem[] = [
   // Pages
   {
-    title: "Beranda",
+    title: "Dashboard",
     url: "/user",
     group: "Pages",
-    icon: Home,
+    icon: LayoutDashboard,
     shortcut: ["d", "d"],
   },
   {

@@ -28,11 +28,13 @@ import {
   SidebarMenuSubButton,
   SidebarMenuSubItem,
   SidebarRail,
+  SidebarSeparator,
 } from "@/components/ui/sidebar";
 import { UserAvatarProfile } from "@/components/custom/user-avatar-profile";
 import { navItems } from "@/modules/public/config";
 import { useFilteredNavItems } from "@/hooks/use-nav";
-import { ChevronRight, ChevronsDown, UserCircle } from "lucide-react";
+import { ChevronRight, ChevronsDown, UserCircle, Home } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import * as React from "react";
@@ -128,7 +130,7 @@ export default function AppSidebar() {
       </SidebarHeader>
       <SidebarContent className="overflow-x-hidden">
         <SidebarGroup>
-          <SidebarGroupLabel>Overview</SidebarGroupLabel>
+          <SidebarGroupLabel>Menu</SidebarGroupLabel>
           <SidebarMenu ref={itemsContainerRef}>
             {filteredItems.map((item) => {
               const Icon = item.icon ? Icons[item.icon] : Icons.logo;
@@ -204,8 +206,43 @@ export default function AppSidebar() {
             })}
           </SidebarMenu>
         </SidebarGroup>
+
+        <SidebarSeparator className="mx-4" />
+        <SidebarGroup>
+          <SidebarGroupLabel>Halaman</SidebarGroupLabel>
+          <SidebarMenu>
+            <SidebarMenuItem>
+              <SidebarMenuButton
+                asChild
+                tooltip="Kembali ke Beranda"
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+              >
+                <Link href="/">
+                  <Home />
+                  <span>Beranda</span>
+                </Link>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          </SidebarMenu>
+        </SidebarGroup>
       </SidebarContent>
       <SidebarFooter>
+        <div className="p-4">
+          <div className="bg-slate-50 dark:bg-slate-800 rounded-xl p-4 border border-slate-100 dark:border-slate-700">
+            <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">
+              Pusat Bantuan
+            </p>
+            <Button
+              variant="outline"
+              asChild
+              className="w-full justify-center bg-white dark:bg-slate-700 border-slate-200 dark:border-slate-600 shadow-sm"
+            >
+              <Link href="/user/help">Hubungi Kami</Link>
+            </Button>
+          </div>
+        </div>
+
         <SidebarMenu>
           <SidebarMenuItem>
             <DropdownMenu
