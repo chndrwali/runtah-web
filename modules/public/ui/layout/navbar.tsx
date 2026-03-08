@@ -6,6 +6,7 @@ import {
   MobileNavMenu,
   MobileNavToggle,
   Navbar,
+  NavbarButton,
   NavbarLogo,
   NavBody,
   NavItems,
@@ -27,6 +28,9 @@ export const LandingNavbar = () => {
         <NavbarLogo />
         <NavItems items={navPublics} />
         <div className="flex items-center gap-4">
+          <NavbarButton href="'/" variant="primary">
+            Masuk
+          </NavbarButton>
           <ThemeModeToggle variant="public" />
         </div>
       </NavBody>
@@ -63,6 +67,9 @@ export const LandingNavbar = () => {
             );
           })}
           <div className="flex w-full flex-col gap-4">
+            <NavbarButton href="'/" variant="primary">
+              Masuk
+            </NavbarButton>
             <div className="w-full flex justify-center">
               <ThemeModeToggle variant="public" />
             </div>

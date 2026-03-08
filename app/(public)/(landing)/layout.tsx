@@ -11,8 +11,8 @@ export default function LandingLayout({
       <div className="mx-auto w-full max-w-7xl">
         <LandingNavbar />
         <main className="grow py-[10vh]">{children}</main>
-        <Footer />
       </div>
+      <Footer />
     </div>
   );
 }

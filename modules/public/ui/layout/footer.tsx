@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Leaf } from "lucide-react";
+import Image from "next/image";
 
 export const Footer = () => {
   return (
@@ -9,7 +9,13 @@ export const Footer = () => {
           {/* Brand & Description */}
           <div className="md:col-span-2 space-y-4">
             <Link href="/" className="inline-flex items-center space-x-2">
-              <Leaf className="h-6 w-6" />
+              <Image
+                alt="Logo"
+                src="/img/logo/favicon-32x32.png"
+                className="h-6 w-6"
+                width={32}
+                height={32}
+              />
               <span className="text-2xl font-extrabold tracking-tight">
                 Runtah
               </span>
@@ -27,7 +33,7 @@ export const Footer = () => {
             <ul className="space-y-2 text-sm text-primary-foreground/80">
               <li>
                 <Link
-                  href="#"
+                  href="/about"
                   className="hover:text-primary-foreground transition-colors"
                 >
                   Tentang Kami
@@ -35,7 +41,7 @@ export const Footer = () => {
               </li>
               <li>
                 <Link
-                  href="#"
+                  href="#cara-kerja"
                   className="hover:text-primary-foreground transition-colors"
                 >
                   Cara Kerja
@@ -58,7 +64,9 @@ export const Footer = () => {
             <ul className="space-y-2 text-sm text-primary-foreground/80">
               <li>
                 <Link
-                  href="#"
+                  href="https://instagram.com/chndrwali"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="hover:text-primary-foreground transition-colors"
                 >
                   Instagram
@@ -66,7 +74,9 @@ export const Footer = () => {
               </li>
               <li>
                 <Link
-                  href="#"
+                  href="https://twitter.com/chndrwali"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="hover:text-primary-foreground transition-colors"
                 >
                   Twitter X
@@ -74,7 +84,9 @@ export const Footer = () => {
               </li>
               <li>
                 <Link
-                  href="#"
+                  href="https://facebook.com/chndrwali"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="hover:text-primary-foreground transition-colors"
                 >
                   Facebook
@@ -86,7 +98,23 @@ export const Footer = () => {
 
         {/* Bottom Bar */}
         <div className="flex flex-col md:flex-row justify-between items-center border-t border-primary-foreground/20 pt-8 text-sm text-primary-foreground/70">
-          <p>© 2026 Runtah Bdg. Hak Cipta Dilindungi Undang-Undang.</p>
+          <div className="flex flex-col items-center md:items-start text-center md:text-left gap-1">
+            <p>
+              &copy; {new Date().getFullYear()} Runtah Bdg. Hak Cipta Dilindungi
+              Undang-Undang.
+            </p>
+            <p>
+              Dibuat oleh{" "}
+              <Link
+                href="https://chndrwali.vercel.app"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline hover:text-primary-foreground transition-colors"
+              >
+                Candra Wali Sanjaya
+              </Link>
+            </p>
+          </div>
           <div className="flex space-x-6 mt-4 md:mt-0">
             <Link
               href="#"
