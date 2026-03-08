@@ -108,9 +108,10 @@ export const SidebarLogo = () => {
               <div className="flex size-6 items-center justify-center rounded-sm border">
                 <Image
                   alt="Logo"
-                  src="/img/logo/favicon-32x-32.png"
-                  className="size-4"
-                  fill
+                  src="/img/logo/android-chrome-192x192.png"
+                  className="size-5"
+                  width={20}
+                  height={20}
                 />
               </div>
               Robah

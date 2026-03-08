@@ -3,7 +3,7 @@
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { Separator } from "@/components/ui/separator";
 import { ThemeModeToggle } from "@/components/custom/theme-mode-toggle";
-import { SearchInput } from "@/modules/admin/ui/components/search-input";
+import { SearchInput } from "@/modules/public/ui/components/search-input";
 import { NotificationDropdown } from "@/modules/admin/ui/components/notification-dropdown";
 
 export default function Header() {
