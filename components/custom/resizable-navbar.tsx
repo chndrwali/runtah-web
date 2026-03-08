@@ -105,7 +105,7 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
       }}
       className={cn(
         "relative z-60 mx-auto hidden w-full max-w-7xl flex-row items-center justify-between self-start rounded-full bg-transparent px-4 py-2 lg:flex dark:bg-transparent",
-        visible && "bg-white/80 dark:bg-neutral-950/80",
+        visible && "bg-white/80 dark:bg-background/80",
         className,
       )}
     >
@@ -135,8 +135,8 @@ export const NavItems = ({ items, className, onItemClick }: NavItemsProps) => {
             className={cn(
               "relative px-4 py-2 transition-colors duration-200",
               isActive
-                ? "text-cyan-600 dark:text-cyan-400"
-                : "text-neutral-600 dark:text-neutral-300 hover:text-fuchsia-500 dark:hover:text-fuchsia-400",
+                ? "text-primary"
+                : "text-neutral-600 dark:text-neutral-300 hover:text-primary",
             )}
             key={`link-${idx}`}
             href={item.link}
@@ -144,13 +144,13 @@ export const NavItems = ({ items, className, onItemClick }: NavItemsProps) => {
             {isActive && (
               <motion.div
                 layoutId="active"
-                className="absolute inset-0 h-full w-full rounded-full bg-cyan-500/10 dark:bg-cyan-500/20"
+                className="absolute inset-0 h-full w-full rounded-full bg-primary/20 dark:bg-primary/30"
               />
             )}
             {hovered === idx && !isActive && (
               <motion.div
                 layoutId="hovered"
-                className="absolute inset-0 h-full w-full rounded-full bg-fuchsia-500/10 dark:bg-fuchsia-500/20"
+                className="absolute inset-0 h-full w-full rounded-full bg-primary/10 dark:bg-primary/20"
               />
             )}
             <span className="relative z-20">{item.name}</span>
@@ -253,7 +253,7 @@ export const NavbarLogo = () => {
       className="relative z-20 mr-4 flex items-center space-x-2 px-2 py-1 "
     >
       <Image
-        src="/logo/favicon-32x32.png"
+        src="/img/logo/favicon-32x32.png"
         alt="logo"
         width={30}
         height={30}
@@ -292,7 +292,7 @@ export const NavbarButton = ({
     gradient:
       "bg-gradient-to-b from-blue-500 to-blue-700 text-white shadow-[0px_2px_0px_0px_rgba(255,255,255,0.3)_inset]",
     cyberpunk:
-      "bg-transparent text-black dark:text-white border border-fuchsia-500/50 hover:border-fuchsia-400 hover:text-fuchsia-500 dark:hover:text-fuchsia-400 hover:shadow-[0_0_15px_rgba(217,70,239,0.3)] transition-all duration-300 backdrop-blur-md",
+      "bg-transparent text-black dark:text-white border border-primary/50 hover:border-primary hover:text-primary hover:shadow-[0_0_15px_rgba(34,197,94,0.3)] transition-all duration-300 backdrop-blur-md",
   };
 
   return (
