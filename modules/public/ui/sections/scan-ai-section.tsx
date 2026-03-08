@@ -45,7 +45,7 @@ const CLASS_NAMES = [
 export const ScanAISection = () => {
   const trpc = useTRPC();
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [model, setModel] = useState<tf.LayersModel | null>(null);
+  const [model, setModel] = useState<tf.GraphModel | null>(null);
   const [isModelLoading, setIsModelLoading] = useState(true);
   const [isScanning, setIsScanning] = useState(false);
   const router = useRouter();
@@ -61,7 +61,7 @@ export const ScanAISection = () => {
       try {
         await tf.setBackend("webgl");
         await tf.ready();
-        const loadedModel = await tf.loadLayersModel("/model/json/model.json");
+        const loadedModel = await tf.loadGraphModel("/model/json/model.json");
         setModel(loadedModel);
         setIsModelLoading(false);
       } catch (error) {
