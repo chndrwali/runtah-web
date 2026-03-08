@@ -67,4 +67,16 @@ export const authRouter = createTRPCRouter({
         name: user?.name,
       };
     }),
+  getCoordinates: protectedProcedure.query(async ({ ctx }) => {
+    if (!ctx.auth?.user?.id) {
+      return null;
+    }
+
+    const user = await prisma.user.findUnique({
+      where: { id: ctx.auth.user.id },
+      select: { lat: true, lng: true },
+    });
+
+    return user;
+  }),
 });
