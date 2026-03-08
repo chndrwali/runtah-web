@@ -31,6 +31,7 @@ import {
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { PasswordInput } from "@/components/custom/password-input";
 import Link from "next/link";
+import Image from "next/image";
 import { Spinner } from "@/components/ui/spinner";
 import { appToast } from "@/components/custom/app-toast";
 
@@ -43,19 +44,19 @@ type AuthFormProps = {
 // ────────────────────────────────────────────
 const variantConfig = {
   login: {
-    title: "SIGN IN TO YOUR ACCOUNT",
-    description: "Enter your email and password to access the app",
-    submitLabel: "Sign In",
-    footerText: "Don't have an account?",
-    footerLinkText: "Register now",
+    title: "MASUK",
+    description: "Masukkan email dan kata sandi untuk mengakses aplikasi",
+    submitLabel: "Masuk",
+    footerText: "Belum punya akun?",
+    footerLinkText: "Daftar sekarang",
     footerLinkHref: "/register",
   },
   register: {
-    title: "CREATE ACCOUNT, IT'S FREE!",
-    description: "Enter your email and password to start registration",
-    submitLabel: "Sign Up",
-    footerText: "Already have an account?",
-    footerLinkText: "Go to login",
+    title: "BUAT AKUN, GRATIS!",
+    description: "Masukkan email dan kata sandi untuk memulai pendaftaran",
+    submitLabel: "Daftar",
+    footerText: "Sudah punya akun?",
+    footerLinkText: "Ke halaman masuk",
     footerLinkHref: "/login",
   },
 } as const;
@@ -96,7 +97,7 @@ export const AuthForm = ({ variant }: AuthFormProps) => {
           onRequest: () => setLoading(true),
           onSuccess: () => {
             setLoading(false);
-            appToast.success("Successfully logged in!");
+            appToast.success("Berhasil masuk!");
             router.push("/admin");
           },
           onError: (ctx) => {
@@ -120,7 +121,7 @@ export const AuthForm = ({ variant }: AuthFormProps) => {
           onRequest: () => setLoading(true),
           onSuccess: () => {
             setLoading(false);
-            appToast.success("Registration successful! Please login.");
+            appToast.success("Pendaftaran berhasil! Silakan masuk.");
             router.push("/login");
           },
           onError: (ctx) => {
@@ -137,6 +138,15 @@ export const AuthForm = ({ variant }: AuthFormProps) => {
   return (
     <Card className="w-full max-w-lg border-none shadow-none bg-transparent">
       <CardHeader>
+        <div className="flex flex-col items-center mb-6 space-y-3">
+          <Image
+            src="/img/logo/favicon-32x32.png"
+            alt="Robah Logo"
+            width={48}
+            height={48}
+          />
+          <h2 className="text-3xl font-bold tracking-tight">Robah</h2>
+        </div>
         <CardTitle className="text-xl font-bold">{config.title}</CardTitle>
         <CardDescription>{config.description}</CardDescription>
       </CardHeader>
@@ -157,10 +167,10 @@ export const AuthForm = ({ variant }: AuthFormProps) => {
                 name="name"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Full Name</FormLabel>
+                    <FormLabel>Nama Lengkap</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="Enter full name"
+                        placeholder="Masukkan nama lengkap"
                         {...field}
                         disabled={loading}
                       />
@@ -177,10 +187,10 @@ export const AuthForm = ({ variant }: AuthFormProps) => {
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email Address</FormLabel>
+                  <FormLabel>Alamat Email</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="Enter your email address"
+                      placeholder="Masukkan alamat email anda"
                       {...field}
                       disabled={loading}
                     />
@@ -196,12 +206,12 @@ export const AuthForm = ({ variant }: AuthFormProps) => {
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Password</FormLabel>
+                  <FormLabel>Kata Sandi</FormLabel>
                   <FormControl>
                     <PasswordInput
                       value={field.value}
                       onChange={field.onChange}
-                      placeholder="Enter your password"
+                      placeholder="Masukkan kata sandi anda"
                       required
                       disabled={loading}
                       {...(!isLogin && { showRules: true, showStrength: true })}
@@ -230,7 +240,7 @@ export const AuthForm = ({ variant }: AuthFormProps) => {
                         />
                       </FormControl>
                       <FormLabel className="text-sm font-normal cursor-pointer">
-                        Remember me
+                        Ingat saya
                       </FormLabel>
                     </FormItem>
                   )}
@@ -240,7 +250,7 @@ export const AuthForm = ({ variant }: AuthFormProps) => {
                   href="/forgot-password"
                   className="text-sm font-medium text-primary hover:underline"
                 >
-                  Forgot password?
+                  Lupa kata sandi?
                 </Link>
               </div>
             )}

@@ -66,10 +66,10 @@ export const HowItWorkSection = () => {
       <div className="container">
         <div className="flex flex-wrap justify-center gsap-reveal">
           <div className="text-center flex flex-col">
-            <h2 className="text-2xl font-bold text-center w-full mb-6 md:text-3xl lg:text-4xl">
+            <h2 className="text-2xl font-bold text-center w-full md:text-3xl lg:text-4xl">
               Bagaimana Cara Menggunakan AI Klasifikasi Sampah?
             </h2>
-            <div className="h-1 w-20 bg-primary mx-auto rounded-full"></div>
+            <div className="h-1 w-20 bg-primary mx-auto rounded-full mb-6"></div>
           </div>
 
           <p className="w-full text-muted-foreground font-medium text-center mb-10 lg:leading-relaxed lg:w-2/3 lg:text-lg">

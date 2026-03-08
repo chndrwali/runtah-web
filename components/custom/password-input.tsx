@@ -23,6 +23,14 @@ export const PasswordInput = ({
 }: PasswordInputProps) => {
   const [show, setShow] = useState(false);
   const [capsLock, setCapsLock] = useState(false);
+  const [focused, setFocused] = useState(false);
+
+  const strengthLabelMap: Record<string, string> = {
+    Weak: "Lemah",
+    Medium: "Sedang",
+    Strong: "Kuat",
+    "Very Strong": "Sangat Kuat",
+  };
 
   const strength =
     showStrength && typeof value === "string"
@@ -41,6 +49,14 @@ export const PasswordInput = ({
           onChange={onChange}
           type={show ? "text" : "password"}
           className={cn(showToggle && "pr-10", className)}
+          onFocus={(e) => {
+            setFocused(true);
+            props.onFocus?.(e);
+          }}
+          onBlur={(e) => {
+            setFocused(false);
+            props.onBlur?.(e);
+          }}
           onKeyUp={(e) => {
             setCapsLock(e.getModifierState("CapsLock"));
           }}
@@ -69,23 +85,23 @@ export const PasswordInput = ({
         </div>
       )}
 
-      {rules && (
-        <ul className="space-y-1">
-          <RuleItem valid={rules.minLength} text="Minimum 8 characters" />
+      {rules && focused && (
+        <ul className="space-y-1 mt-2">
+          <RuleItem valid={rules.minLength} text="Minimal 8 karakter" />
           <RuleItem
             valid={rules.uppercase}
-            text="Contains uppercase letter (A–Z)"
+            text="Mengandung huruf kapital (A–Z)"
           />
-          <RuleItem valid={rules.number} text="Contains number (0–9)" />
+          <RuleItem valid={rules.number} text="Mengandung angka (0–9)" />
           <RuleItem
             valid={rules.specialChar}
-            text="Contains special character (!@# etc)"
+            text="Mengandung karakter spesial (!@# dll)"
           />
         </ul>
       )}
 
       {strength && value && (
-        <div className="space-y-1">
+        <div className="space-y-1 mt-2">
           <div className="h-1 w-full rounded bg-muted overflow-hidden">
             <div
               className={cn("h-full transition-all", strength.color)}
@@ -93,8 +109,10 @@ export const PasswordInput = ({
             />
           </div>
           <p className="text-xs text-muted-foreground">
-            Password strength:{" "}
-            <span className="font-medium">{strength.label}</span>
+            Kekuatan kata sandi:{" "}
+            <span className="font-medium">
+              {strengthLabelMap[strength.label] || strength.label}
+            </span>
           </p>
         </div>
       )}

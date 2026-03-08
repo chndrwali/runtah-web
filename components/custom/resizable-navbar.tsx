@@ -259,7 +259,7 @@ export const NavbarLogo = () => {
         height={30}
         quality={75}
       />
-      <span className="text-lg font-bold">Runtah</span>
+      <span className="text-lg font-bold">Robah</span>
     </Link>
   );
 };
