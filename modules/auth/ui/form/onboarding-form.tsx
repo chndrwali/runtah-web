@@ -6,11 +6,27 @@ import { useRouter } from "next/navigation";
 import { useTRPC } from "@/trpc/client";
 import { updateUser } from "@/lib/auth-client";
 import { useMutation } from "@tanstack/react-query";
-import { MapPin, Recycle, Gift, Bell } from "lucide-react";
+import { Recycle, Gift, Bell } from "lucide-react";
 
-import { cn } from "@/lib/utils";
+import { BANDUNG_DISTRICTS, cn } from "@/lib/utils";
 import { appToast } from "@/components/custom/app-toast";
 import { onboardingSchema, type OnboardingFormValues } from "@/lib/form-schema";
+import dynamic from "next/dynamic";
+
+const LocationPicker = dynamic(
+  () => import("@/components/custom/location-picker"),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="w-full h-48 bg-slate-100 dark:bg-slate-800 rounded-xl flex items-center justify-center border-2 border-slate-300 dark:border-slate-600 animate-pulse">
+        <span className="text-sm font-medium text-slate-400">
+          Memuat Peta...
+        </span>
+      </div>
+    ),
+  },
+);
+
 import {
   MultiStepFormProvider,
   StepConfig,
@@ -238,11 +254,14 @@ export function OnboardingForm({ initialName }: { initialName?: string }) {
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
-                            <SelectItem value="coblong">Coblong</SelectItem>
-                            <SelectItem value="sukajadi">Sukajadi</SelectItem>
-                            <SelectItem value="lengkong">Lengkong</SelectItem>
-                            <SelectItem value="andir">Andir</SelectItem>
-                            <SelectItem value="arcamanik">Arcamanik</SelectItem>
+                            {BANDUNG_DISTRICTS.map((district) => (
+                              <SelectItem
+                                key={district}
+                                value={district.toLowerCase()}
+                              >
+                                {district}
+                              </SelectItem>
+                            ))}
                           </SelectContent>
                         </Select>
                         <FormMessage />
@@ -270,15 +289,21 @@ export function OnboardingForm({ initialName }: { initialName?: string }) {
                     )}
                   />
 
-                  {/* Map Placeholder */}
-                  <div className="w-full h-32 bg-slate-100 dark:bg-slate-800 rounded-xl flex items-center justify-center border-2 border-dashed border-slate-300 dark:border-slate-600 overflow-hidden relative group">
-                    <div className="absolute inset-0 opacity-10 bg-primary/20 bg-[radial-gradient(#10b981_1px,transparent_1px)] bg-size-[16px_16px]" />
-                    <div className="z-10 flex items-center gap-2 text-slate-400 dark:text-slate-500">
-                      <MapPin className="size-5" />
-                      <span className="text-xs uppercase tracking-wider font-semibold">
-                        Tampilan Peta Tersedia Setelah Alamat Lengkap
-                      </span>
-                    </div>
+                  {/* Interactive Map */}
+                  <div className="space-y-2">
+                    <FormLabel className="text-sm font-semibold text-slate-700 dark:text-slate-300">
+                      Tandai Titik Lokasi
+                    </FormLabel>
+                    <LocationPicker
+                      onLocationSelect={(lat, lng) => {
+                        console.log(`Terpilih lokasi: ${lat}, ${lng}`);
+                        // Nanti kalau DB Schema punya field lat lng, bs dimasukkan ke form state juga
+                      }}
+                    />
+                    <p className="text-xs text-muted-foreground mt-1">
+                      Geser map dan klik untuk menentukan titik lokasi
+                      penjemputanmu.
+                    </p>
                   </div>
                 </div>
               </StepContent>
@@ -348,13 +373,43 @@ export function OnboardingForm({ initialName }: { initialName?: string }) {
   function FormNavigation() {
     const { currentStep } = useMultiStepForm();
 
-    const validateStep = async () => {
+    const validateStep = () => {
+      const values = form.getValues();
+
       if (currentStep === 0) {
-        return await form.trigger(["name", "appGoal"]);
+        const result = onboardingSchema
+          .pick({ name: true, appGoal: true })
+          .safeParse({ name: values.name, appGoal: values.appGoal });
+
+        if (!result.success) {
+          form.clearErrors(["name", "appGoal"]);
+          result.error.issues.forEach((issue) => {
+            const field = issue.path[0] as "name" | "appGoal";
+            form.setError(field, { message: issue.message });
+          });
+          return false;
+        }
+        form.clearErrors(["name", "appGoal"]);
+        return true;
       }
+
       if (currentStep === 1) {
-        return await form.trigger(["area", "address"]);
+        const result = onboardingSchema
+          .pick({ area: true, address: true })
+          .safeParse({ area: values.area, address: values.address });
+
+        if (!result.success) {
+          form.clearErrors(["area", "address"]);
+          result.error.issues.forEach((issue) => {
+            const field = issue.path[0] as "area" | "address";
+            form.setError(field, { message: issue.message });
+          });
+          return false;
+        }
+        form.clearErrors(["area", "address"]);
+        return true;
       }
+
       return true;
     };
 
@@ -363,7 +418,7 @@ export function OnboardingForm({ initialName }: { initialName?: string }) {
         onValidate={validateStep}
         onSubmit={form.handleSubmit(onSubmit)}
         isSubmitting={completeMutation.isPending}
-        submitLabel="Mulai Eksplorasi Runtah"
+        submitLabel="Mulai Eksplorasi Robah"
       />
     );
   }
