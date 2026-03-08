@@ -31,6 +31,21 @@ model User {
   banReason  String?
   banExpires DateTime?
 
+  phone                String?   // Dari Halaman Profil
+  area                 String?   // Dari Onboarding Step 2 (misal: "Coblong")
+  address              String?   // Dari Onboarding Step 2 (Detail Alamat Penjemputan)
+  appGoal              String?   // Dari Onboarding Step 1 (Tujuan pakai Robah)
+  notificationsEnabled Boolean   @default(false) // Dari Onboarding Step 3
+  onboardingCompleted  Boolean   @default(false) // Flagging biar user lama ga kena onboarding lagi
+  
+  // Gamifikasi & Impact
+  totalPoints          Int       @default(0)     // Saldo poin Robah
+  totalWeightSaved     Float     @default(0)     // Total sampah (Kg) yang udah disetor
+
+  // Relasi ke tabel baru
+  trashTransactions    TrashTransaction[]
+  rewardRedemptions    RewardRedemption[]
+
   @@map("user")
 }
 
@@ -106,4 +121,46 @@ model Verification {
 
   @@index([identifier])
   @@map("verification")
+}
+
+// Model untuk menyimpan Riwayat Scan AI dan Penyetoran Sampah
+model TrashTransaction {
+  id            String   @id @default(cuid())
+  userId        String
+  
+  // Data dari AI Scanner
+  imageUrl      String?  // URL gambar dari Supabase Storage
+  aiCategory    String   // Hasil tebakan AI (misal: "Botol Plastik PET")
+  aiAccuracy    Float    // Persentase keyakinan (misal: 96.5)
+  
+  // Data Penyetoran
+  deliveryType  String   // "DROP_OFF" atau "PICK_UP"
+  status        String   @default("PENDING") // PENDING, IN_PROGRESS, COMPLETED, CANCELLED
+  finalWeight   Float?   // Berat aktual (Kg) setelah ditimbang oleh Bank Sampah
+  pointsEarned  Int      @default(0) // Poin yang didapat setelah COMPLETED
+  
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("trash_transaction")
+}
+
+// Model untuk menyimpan Riwayat Penukaran Poin (Rewards)
+model RewardRedemption {
+  id          String   @id @default(cuid())
+  userId      String
+  
+  rewardTitle String   // Nama hadiah (misal: "Voucher Diskon Kopi Braga")
+  pointsCost  Int      // Jumlah poin yang dikurangi dari saldo user
+  status      String   @default("SUCCESS") // SUCCESS, FAILED
+  
+  createdAt   DateTime @default(now())
+
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("reward_redemption")
 }

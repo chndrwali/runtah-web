@@ -16,10 +16,19 @@ import { navPublics } from "@/modules/public/config";
 import { ThemeModeToggle } from "@/components/custom/theme-mode-toggle";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import { useCurrentUser } from "@/hooks/use-current-user";
 
 export const LandingNavbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const pathname = usePathname();
+  const { user } = useCurrentUser();
+
+  const buttonHref = user
+    ? user.role === "admin"
+      ? "/admin"
+      : "/user"
+    : "/login";
+  const buttonLabel = user ? "Dashboard" : "Masuk";
 
   return (
     <Navbar>
@@ -28,8 +37,8 @@ export const LandingNavbar = () => {
         <NavbarLogo />
         <NavItems items={navPublics} />
         <div className="flex items-center gap-4">
-          <NavbarButton href="/login" variant="gradient">
-            Masuk
+          <NavbarButton href={buttonHref} variant="gradient">
+            {buttonLabel}
           </NavbarButton>
           <ThemeModeToggle variant="public" />
         </div>
@@ -67,8 +76,8 @@ export const LandingNavbar = () => {
             );
           })}
           <div className="flex w-full flex-col gap-4">
-            <NavbarButton href="/login" variant="gradient">
-              Masuk
+            <NavbarButton href={buttonHref} variant="gradient">
+              {buttonLabel}
             </NavbarButton>
             <div className="w-full flex justify-center">
               <ThemeModeToggle variant="public" />

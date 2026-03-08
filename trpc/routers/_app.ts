@@ -1,6 +1,8 @@
 import { createTRPCRouter } from "@/trpc/init";
+import { authRouter } from "@/modules/auth/server";
 
 export const appRouter = createTRPCRouter({
+  auth: authRouter,
   // Portfolio Content Administration
   //   userAdmin: userAdminRouter,
   //   projectAdmin: projectAdminRouter,

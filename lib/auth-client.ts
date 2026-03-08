@@ -10,6 +10,7 @@ export const {
   resetPassword,
   requestPasswordReset,
   admin,
+  updateUser,
 } = createAuthClient({
   plugins: [adminClient()],
 });

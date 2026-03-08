@@ -12,7 +12,7 @@ export default async function AdminLayoutWrapper({
   const session = await getSession();
   const isAdmin = session?.user.role === "admin";
 
-  if (!isAdmin) redirect("/");
+  if (!isAdmin) redirect("/user");
 
   return <AdminLayout>{children}</AdminLayout>;
 }

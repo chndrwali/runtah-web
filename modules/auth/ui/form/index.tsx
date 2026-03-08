@@ -91,14 +91,14 @@ export const AuthForm = ({ variant }: AuthFormProps) => {
           email: loginValues.email,
           password: loginValues.password,
           rememberMe: loginValues.remember ?? true,
-          callbackURL: "/admin",
+          callbackURL: "/onboarding",
         },
         {
           onRequest: () => setLoading(true),
           onSuccess: () => {
             setLoading(false);
             appToast.success("Berhasil masuk!");
-            router.push("/admin");
+            router.push("/onboarding");
           },
           onError: (ctx) => {
             setLoading(false);
@@ -140,7 +140,7 @@ export const AuthForm = ({ variant }: AuthFormProps) => {
       <CardHeader>
         <div className="flex flex-col items-center mb-6 space-y-3">
           <Image
-            src="/img/logo/favicon-32x32.png"
+            src="/img/logo/android-chrome-192x192.png"
             alt="Robah Logo"
             width={48}
             height={48}
