@@ -125,22 +125,36 @@ export const historyRouter = createTRPCRouter({
   /**
    * Get recent activities specifically formatted for the dashboard
    */
-  getRecentActivities: protectedProcedure.query(async ({ ctx }) => {
-    const userId = ctx.auth.user?.id;
+  getRecentActivities: protectedProcedure
+    .input(
+      z
+        .object({
+          sortBy: z
+            .enum(["aiCategory", "createdAt", "pointsEarned", "status"])
+            .default("createdAt"),
+          sortOrder: z.enum(["asc", "desc"]).default("desc"),
+        })
+        .optional(),
+    )
+    .query(async ({ ctx, input }) => {
+      const userId = ctx.auth.user?.id;
 
-    if (!userId) {
-      throw new TRPCError({
-        code: "UNAUTHORIZED",
-        message: "User tidak valid",
+      if (!userId) {
+        throw new TRPCError({
+          code: "UNAUTHORIZED",
+          message: "User tidak valid",
+        });
+      }
+
+      const sortBy = input?.sortBy || "createdAt";
+      const sortOrder = input?.sortOrder || "desc";
+
+      const recentActivities = await prisma.trashTransaction.findMany({
+        where: { userId },
+        orderBy: { [sortBy]: sortOrder },
+        take: 3,
       });
-    }
 
-    const recentActivities = await prisma.trashTransaction.findMany({
-      where: { userId },
-      orderBy: { createdAt: "desc" },
-      take: 3,
-    });
-
-    return recentActivities;
-  }),
+      return recentActivities;
+    }),
 });

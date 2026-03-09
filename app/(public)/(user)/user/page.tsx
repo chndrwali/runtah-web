@@ -1,5 +1,5 @@
 import { DashboardSection } from "@/modules/public/ui/sections/dashboard-section";
-import { HydrateClient, trpc } from "@/trpc/server";
+import { HydrateClient, trpc, prefetch } from "@/trpc/server";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -9,8 +9,13 @@ export const metadata: Metadata = {
 
 export default async function Page() {
   await Promise.all([
-    trpc.auth.getDashboardStats.queryOptions(),
-    trpc.history.getRecentActivities.queryOptions(),
+    prefetch(trpc.auth.getDashboardStats.queryOptions()),
+    prefetch(
+      trpc.history.getRecentActivities.queryOptions({
+        sortBy: "createdAt",
+        sortOrder: "desc",
+      }),
+    ),
   ]);
   return (
     <HydrateClient>

@@ -6,13 +6,26 @@ import { useQuery } from "@tanstack/react-query";
 import { DataTable } from "@/components/custom/data-table";
 import { dashboardColumns } from "./columns";
 import { Loader2 } from "lucide-react";
+import { useState } from "react";
+import { SortingState } from "@tanstack/react-table";
 
 export function DashboardActivity() {
   const trpc = useTRPC();
+  const [sorting, setSorting] = useState<SortingState>([]);
 
-  // Fetch only the 3 most recent activities
+  const trpcSortBy = sorting.length > 0 ? sorting[0].id : "createdAt";
+  const trpcSortOrder = sorting.length > 0 && sorting[0].desc ? "desc" : "asc";
+
+  // Fetch only the 3 most recent activities with dynamic sorting
   const { data: recentActivities = [], isLoading } = useQuery(
-    trpc.history.getRecentActivities.queryOptions(),
+    trpc.history.getRecentActivities.queryOptions({
+      sortBy: trpcSortBy as
+        | "aiCategory"
+        | "createdAt"
+        | "pointsEarned"
+        | "status",
+      sortOrder: trpcSortOrder,
+    }),
   );
 
   return (
@@ -38,7 +51,9 @@ export function DashboardActivity() {
           <DataTable
             columns={dashboardColumns}
             data={recentActivities}
-            isLoading={false}
+            isLoading={isLoading}
+            sorting={sorting}
+            onSortingChange={setSorting}
           />
         </div>
       )}

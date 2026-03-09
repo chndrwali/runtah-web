@@ -5,6 +5,8 @@ import {
   flexRender,
   getCoreRowModel,
   useReactTable,
+  SortingState,
+  OnChangeFn,
 } from "@tanstack/react-table";
 
 import {
@@ -21,18 +23,27 @@ interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
   isLoading?: boolean;
+  sorting?: SortingState;
+  onSortingChange?: OnChangeFn<SortingState>;
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
   isLoading = false,
+  sorting,
+  onSortingChange,
 }: DataTableProps<TData, TValue>) {
   // eslint-disable-next-line react-hooks/incompatible-library
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
+    onSortingChange,
+    manualSorting: !!onSortingChange,
+    state: {
+      ...(sorting !== undefined && { sorting }),
+    },
   });
 
   return (

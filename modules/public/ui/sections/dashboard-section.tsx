@@ -4,7 +4,7 @@ import { DashboardActivity } from "@/modules/public/ui/components/dashboard/dash
 
 export const DashboardSection = () => {
   return (
-    <section className="flex flex-1 flex-col p-4 md:px-6">
+    <section className="flex flex-1 flex-col space-y-4 p-4 md:px-6">
       <DashboardStats />
       <DashboardCTA />
       <DashboardActivity />
