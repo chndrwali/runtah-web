@@ -13,38 +13,25 @@ import {
   GlassWater,
   Battery,
   Wrench,
-  MonitorSmartphone,
   FileText,
   Shirt,
   Leaf,
-  Utensils,
   Settings,
   HelpCircle,
   Lightbulb,
   Video,
+  ImagePlus,
 } from "lucide-react";
 import { toast } from "sonner";
 import { useUploadThing } from "@/components/uploadthing";
 import { useMutation } from "@tanstack/react-query";
-
-const CLASS_NAMES = [
-  "Baterai",
-  "Elektronik",
-  "Kaca",
-  "Kardus",
-  "Karet",
-  "Kertas",
-  "Logam",
-  "Minyak Jelantah",
-  "Organik",
-  "Plastik",
-  "Sisa Makanan",
-  "Tekstil",
-];
+import { appToast } from "@/components/custom/app-toast";
+import { CLASS_NAMES } from "@/lib/utils";
 
 export const ScanAISection = () => {
   const trpc = useTRPC();
   const videoRef = useRef<HTMLVideoElement>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const [model, setModel] = useState<tf.GraphModel | null>(null);
   const [isModelLoading, setIsModelLoading] = useState(true);
   const [isScanning, setIsScanning] = useState(false);
@@ -66,7 +53,7 @@ export const ScanAISection = () => {
         setIsModelLoading(false);
       } catch (error) {
         console.error("Error loading model:", error);
-        toast.error("Gagal memuat model AI");
+        appToast.error("Gagal memuat model AI");
         setIsModelLoading(false);
       }
     };
@@ -84,46 +71,36 @@ export const ScanAISection = () => {
           }
         } catch (error) {
           console.error("Error accessing camera:", error);
-          toast.error("Gagal mengakses kamera");
+          appToast.error("Gagal mengakses kamera");
         }
       }
     };
     setupCamera();
 
+    const videoElement = videoRef.current;
+
     return () => {
-      if (videoRef.current && videoRef.current.srcObject) {
-        const stream = videoRef.current.srcObject as MediaStream;
+      if (videoElement && videoElement.srcObject) {
+        const stream = videoElement.srcObject as MediaStream;
         stream.getTracks().forEach((track) => track.stop());
       }
     };
   }, []);
 
-  const captureAndPredict = async () => {
-    if (!model || !videoRef.current || isScanning) return;
+  const processAndPredict = async (
+    imageSource: HTMLImageElement | HTMLVideoElement | HTMLCanvasElement,
+    fileToUpload: File,
+  ) => {
+    if (!model || isScanning) return;
     setIsScanning(true);
 
     try {
-      // Create a canvas to capture the image
-      const video = videoRef.current;
-      const canvas = document.createElement("canvas");
-      canvas.width = video.videoWidth;
-      canvas.height = video.videoHeight;
-      const ctx = canvas.getContext("2d");
-
-      if (!ctx) throw new Error("Could not get canvas context");
-
-      // Draw video frame to canvas
-      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-
-      // Crop to square for prediction (assuming model expects 150x150 or similar)
-      // Standard image classification models usually take square inputs.
       const tensor = tf.browser
-        .fromPixels(canvas)
-        .resizeNearestNeighbor([224, 224]) // typical size, check model specifics if needed
+        .fromPixels(imageSource)
+        .resizeNearestNeighbor([224, 224])
         .toFloat()
-        .expandDims(0); // [1, 150, 150, 3]
+        .expandDims();
 
-      // Predict
       const prediction = (await model.predict(tensor)) as tf.Tensor;
       const scores = await prediction.data();
 
@@ -133,7 +110,49 @@ export const ScanAISection = () => {
       const category = CLASS_NAMES[maxIndex];
       const accuracy = maxScore * 100;
 
-      // Prepare image for upload
+      toast.loading("Menyimpan hasil scan...", {
+        id: "saving",
+        position: "top-center",
+      });
+
+      const uploadRes = await startUpload([fileToUpload]);
+      const imageUrl = uploadRes?.[0]?.url;
+
+      const result = await saveScan({
+        imageUrl,
+        aiCategory: category,
+        aiAccuracy: accuracy,
+      });
+
+      toast.success("Berhasil di-scan!", {
+        id: "saving",
+        position: "top-center",
+      });
+      router.push(`/user/ai/${result.id}`);
+    } catch (error) {
+      console.error("Prediction error:", error);
+      toast.error("Gagal melakukan klasifikasi", {
+        id: "saving",
+        position: "top-center",
+      });
+    } finally {
+      setIsScanning(false);
+    }
+  };
+
+  const captureAndPredict = async () => {
+    if (!videoRef.current) return;
+
+    try {
+      const video = videoRef.current;
+      const canvas = document.createElement("canvas");
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      const ctx = canvas.getContext("2d");
+
+      if (!ctx) throw new Error("Could not get canvas context");
+      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
       const blob = await new Promise<Blob | null>((resolve) =>
         canvas.toBlob(resolve, "image/jpeg"),
       );
@@ -141,27 +160,26 @@ export const ScanAISection = () => {
 
       const file = new File([blob], "scan.jpg", { type: "image/jpeg" });
 
-      toast.loading("Menyimpan hasil scan...", { id: "saving" });
-
-      // Upload image
-      const uploadRes = await startUpload([file]);
-      const imageUrl = uploadRes?.[0]?.url;
-
-      // Save to TRPC
-      const result = await saveScan({
-        imageUrl,
-        aiCategory: category,
-        aiAccuracy: accuracy,
-      });
-
-      toast.success("Berhasil di-scan!", { id: "saving" });
-      router.push(`/user/ai/${result.id}`);
+      // Predict from canvas directly for better consistency
+      await processAndPredict(canvas, file);
     } catch (error) {
-      console.error("Prediction error:", error);
-      toast.error("Gagal melakukan klasifikasi", { id: "saving" });
-    } finally {
-      setIsScanning(false);
+      console.error("Capture error:", error);
     }
+  };
+
+  const handleGallerySelect = async (
+    e: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const imgUrl = URL.createObjectURL(file);
+    const imgElement = new Image();
+    imgElement.src = imgUrl;
+    imgElement.onload = async () => {
+      await processAndPredict(imgElement, file);
+      URL.revokeObjectURL(imgUrl);
+    };
   };
 
   return (
@@ -210,14 +228,34 @@ export const ScanAISection = () => {
             </div>
           </div>
 
-          {/* Capture Control */}
-          <div className="flex justify-center">
+          {/* Capture Controls */}
+          <div className="flex justify-center items-center gap-6">
+            <input
+              type="file"
+              accept="image/*"
+              className="hidden"
+              ref={fileInputRef}
+              onChange={handleGallerySelect}
+            />
+            <button
+              onClick={() => fileInputRef.current?.click()}
+              disabled={isModelLoading || isScanning}
+              className="group flex flex-col items-center gap-2 disabled:opacity-50"
+            >
+              <div className="size-14 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-full flex items-center justify-center shadow-md transition-all active:scale-95">
+                <ImagePlus className="size-6" />
+              </div>
+              <span className="text-xs font-semibold text-slate-600 dark:text-slate-400">
+                Galeri
+              </span>
+            </button>
+
             <button
               onClick={captureAndPredict}
               disabled={isModelLoading || isScanning}
               className="group flex flex-col items-center gap-3 disabled:opacity-50"
             >
-              <div className="size-20 bg-primary hover:bg-primary/90 rounded-full flex items-center justify-center shadow-lg shadow-primary/40 ring-4 ring-primary/20 transition-all active:scale-95">
+              <div className="size-20 bg-primary hover:bg-primary/90 rounded-full flex items-center justify-center shadow-lg shadow-primary/40 ring-4 ring-primary/20 transition-all active:scale-95 relative">
                 {isScanning ? (
                   <div className="size-8 border-4 border-white border-t-transparent rounded-full animate-spin" />
                 ) : (
@@ -228,6 +266,11 @@ export const ScanAISection = () => {
                 Capture
               </span>
             </button>
+
+            {/* Invisible placeholder for balance */}
+            <div className="w-14 items-center flex-col gap-2 flex opacity-0 pointer-events-none">
+              <div className="size-14 rounded-full"></div>
+            </div>
           </div>
         </div>
 
@@ -249,18 +292,18 @@ export const ScanAISection = () => {
             </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-2 mb-8 h-64 overflow-y-auto pr-2">
-              <CategoryItem icon={Package} label="Kardus" />
-              <CategoryItem icon={Droplet} label="Plastik" />
-              <CategoryItem icon={GlassWater} label="Kaca" />
               <CategoryItem icon={Battery} label="Baterai" />
+              <CategoryItem icon={Leaf} label="Biologis" />
+              <CategoryItem icon={GlassWater} label="Kaca Coklat" />
+              <CategoryItem icon={Package} label="Kardus" />
+              <CategoryItem icon={Shirt} label="Pakaian" />
+              <CategoryItem icon={GlassWater} label="Kaca Hijau" />
               <CategoryItem icon={Wrench} label="Logam" />
-              <CategoryItem icon={MonitorSmartphone} label="Elektronik" />
               <CategoryItem icon={FileText} label="Kertas" />
-              <CategoryItem icon={Shirt} label="Tekstil" />
-              <CategoryItem icon={Leaf} label="Organik" />
-              <CategoryItem icon={Utensils} label="Sisa Makanan" />
-              <CategoryItem icon={Droplet} label="Minyak Jelantah" />
-              <CategoryItem icon={Settings} label="Karet" />
+              <CategoryItem icon={Droplet} label="Plastik" />
+              <CategoryItem icon={Settings} label="Sepatu" />
+              <CategoryItem icon={HelpCircle} label="Residu" />
+              <CategoryItem icon={GlassWater} label="Kaca Putih" />
             </div>
 
             <div className="p-4 bg-primary/5 border border-primary/10 rounded-2xl flex gap-3">

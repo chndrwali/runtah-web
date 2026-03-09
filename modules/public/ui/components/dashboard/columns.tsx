@@ -10,6 +10,12 @@ import {
   Clock,
   XCircle,
   AlertCircle,
+  Battery,
+  Leaf,
+  GlassWater,
+  Shirt,
+  Wrench,
+  HelpCircle,
 } from "lucide-react";
 import { format, isToday, isYesterday } from "date-fns";
 import { id } from "date-fns/locale";
@@ -35,23 +41,57 @@ export const dashboardColumns: ColumnDef<TrashTransaction>[] = [
       const category = row.getValue("aiCategory") as string;
 
       let Icon = Package;
-      let iconBgClass = "bg-gray-100 dark:bg-gray-800";
-      let iconTextClass = "text-gray-600 dark:text-gray-400";
+      let iconBgClass = "bg-slate-100 dark:bg-slate-800";
+      let iconTextClass = "text-slate-600 dark:text-slate-400";
 
-      if (
-        category.toLowerCase().includes("plastik") ||
-        category.toLowerCase().includes("pet")
-      ) {
-        Icon = Droplet;
-        iconBgClass = "bg-blue-100 dark:bg-blue-900/30";
-        iconTextClass = "text-blue-600 dark:text-blue-400";
-      } else if (
-        category.toLowerCase().includes("kardus") ||
-        category.toLowerCase().includes("kertas")
-      ) {
-        Icon = FileText;
-        iconBgClass = "bg-orange-100 dark:bg-orange-900/30";
-        iconTextClass = "text-orange-600 dark:text-orange-400";
+      switch (category) {
+        case "Baterai":
+          Icon = Battery;
+          iconBgClass = "bg-red-100 dark:bg-red-900/30";
+          iconTextClass = "text-red-600 dark:text-red-400";
+          break;
+        case "Biologis":
+          Icon = Leaf;
+          iconBgClass = "bg-emerald-100 dark:bg-emerald-900/30";
+          iconTextClass = "text-emerald-600 dark:text-emerald-400";
+          break;
+        case "Plastik":
+          Icon = Droplet;
+          iconBgClass = "bg-blue-100 dark:bg-blue-900/30";
+          iconTextClass = "text-blue-600 dark:text-blue-400";
+          break;
+        case "Kardus":
+        case "Kertas":
+          Icon = FileText;
+          iconBgClass = "bg-amber-100 dark:bg-amber-900/30";
+          iconTextClass = "text-amber-600 dark:text-amber-400";
+          break;
+        case "Kaca Coklat":
+        case "Kaca Hijau":
+        case "Kaca Putih":
+          Icon = GlassWater;
+          iconBgClass = "bg-cyan-100 dark:bg-cyan-900/30";
+          iconTextClass = "text-cyan-600 dark:text-cyan-400";
+          break;
+        case "Pakaian":
+        case "Sepatu":
+          Icon = Shirt;
+          iconBgClass = "bg-indigo-100 dark:bg-indigo-900/30";
+          iconTextClass = "text-indigo-600 dark:text-indigo-400";
+          break;
+        case "Logam":
+          Icon = Wrench;
+          iconBgClass = "bg-slate-200 dark:bg-slate-700";
+          iconTextClass = "text-slate-700 dark:text-slate-300";
+          break;
+        case "Residu":
+          Icon = HelpCircle;
+          iconBgClass = "bg-neutral-100 dark:bg-neutral-800";
+          iconTextClass = "text-neutral-600 dark:text-neutral-400";
+          break;
+        default:
+          Icon = Package;
+          break;
       }
 
       return (

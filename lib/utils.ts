@@ -113,3 +113,18 @@ export const BANDUNG_DISTRICTS = [
   "Sumur Bandung",
   "Ujungberung",
 ];
+
+export const CLASS_NAMES = [
+  "Baterai",
+  "Biologis",
+  "Kaca Coklat",
+  "Kardus",
+  "Pakaian",
+  "Kaca Hijau",
+  "Logam",
+  "Kertas",
+  "Plastik",
+  "Sepatu",
+  "Residu",
+  "Kaca Putih",
+];

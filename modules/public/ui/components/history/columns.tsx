@@ -50,9 +50,18 @@ export const columns: ColumnDef<TrashTransaction>[] = [
       // Basic grouping based on Runtah categories
       const category = row.getValue("aiCategory") as string;
       const typeMap: Record<string, string> = {
-        "Botol Plastik PET": "Anorganik",
-        "Kardus Bekas": "Anorganik",
-        "Kaleng Aluminium": "Logam",
+        Baterai: "B3",
+        Biologis: "Organik",
+        "Kaca Coklat": "Anorganik",
+        Kardus: "Anorganik",
+        Pakaian: "Anorganik",
+        "Kaca Hijau": "Anorganik",
+        Logam: "Anorganik",
+        Kertas: "Anorganik",
+        Plastik: "Anorganik",
+        Sepatu: "Anorganik",
+        Residu: "Residu",
+        "Kaca Putih": "Anorganik",
       };
       const subType = typeMap[category] || "Lainnya";
 

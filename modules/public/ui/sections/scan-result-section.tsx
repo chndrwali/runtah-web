@@ -60,7 +60,7 @@ export function ScanResultSection({ id }: { id: string }) {
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Left Column: Captured Image (40%) */}
           <div className="lg:w-[40%] flex flex-col gap-4">
-            <div className="relative aspect-[4/5] rounded-3xl overflow-hidden shadow-xl ring-1 ring-slate-200 dark:ring-slate-800 bg-slate-100 dark:bg-slate-800">
+            <div className="relative aspect-4/5 rounded-3xl overflow-hidden shadow-xl ring-1 ring-slate-200 dark:ring-slate-800 bg-slate-100 dark:bg-slate-800">
               {scan.imageUrl ? (
                 <Image
                   src={scan.imageUrl}
@@ -97,7 +97,7 @@ export function ScanResultSection({ id }: { id: string }) {
 
           {/* Right Column: Details (60%) */}
           <div className="lg:w-[60%]">
-            <div className="bg-white dark:bg-slate-900 rounded-[2rem] p-8 lg:p-10 shadow-sm border border-slate-100 dark:border-slate-800 h-full flex flex-col">
+            <div className="bg-white dark:bg-slate-900 rounded-4xl p-8 lg:p-10 shadow-sm border border-slate-100 dark:border-slate-800 h-full flex flex-col">
               <div className="flex items-start justify-between mb-6">
                 <div>
                   <h3 className="text-4xl lg:text-5xl font-black text-slate-900 dark:text-white leading-tight mb-4 capitalize">
@@ -138,7 +138,7 @@ export function ScanResultSection({ id }: { id: string }) {
               </div>
 
               {/* Spacer */}
-              <div className="flex-grow"></div>
+              <div className="grow"></div>
 
               {/* Action Buttons */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
