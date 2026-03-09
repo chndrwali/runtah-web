@@ -124,7 +124,7 @@ export const TechStackSection = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16 gsap-reveal">
           <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
-            Teknologi di Balik Runtah
+            Teknologi di Balik Robah
           </h2>
           <div className="h-1 w-20 bg-primary mx-auto rounded-full mb-6"></div>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">

@@ -47,7 +47,7 @@ export default async function Page({ params }: PageProps) {
 
   return (
     <HydrateClient>
-      <ScanResultSection id={id} />
+      <ScanResultSection id={id} show={false} />
     </HydrateClient>
   );
 }
