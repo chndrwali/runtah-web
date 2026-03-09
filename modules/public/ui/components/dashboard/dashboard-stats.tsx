@@ -32,9 +32,9 @@ export function DashboardStats() {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-      <div className="bg-white dark:bg-slate-900 p-8 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800 flex flex-col justify-between">
+      <div className="bg-card p-8 rounded-2xl shadow-sm border border-border flex flex-col justify-between">
         <div>
-          <p className="text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+          <p className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">
             Total Poin
           </p>
           <h3 className="text-4xl font-black text-primary mt-2">
@@ -59,25 +59,25 @@ export function DashboardStats() {
             </>
           ) : (
             <>
-              <Minus className="size-4 text-slate-400" />
-              <span className="text-slate-500">
+              <Minus className="size-4 text-muted-foreground" />
+              <span className="text-muted-foreground">
                 Tidak ada perubahan poin dari minggu lalu
               </span>
             </>
           )}
         </div>
       </div>
-      <div className="bg-white dark:bg-slate-900 p-8 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800 flex flex-col justify-between">
+      <div className="bg-card p-8 rounded-2xl shadow-sm border border-border flex flex-col justify-between">
         <div>
-          <p className="text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+          <p className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">
             Total Sampah Diselamatkan
           </p>
-          <h3 className="text-4xl font-black text-slate-900 dark:text-white mt-2">
+          <h3 className="text-4xl font-black text-foreground mt-2">
             {formattedWeight}{" "}
-            <span className="text-2xl font-bold text-slate-400">Kg</span>
+            <span className="text-2xl font-bold text-muted-foreground">Kg</span>
           </h3>
         </div>
-        <div className="mt-6 flex items-center gap-2 text-slate-500 text-sm font-medium">
+        <div className="mt-6 flex items-center gap-2 text-muted-foreground text-sm font-medium">
           <Calendar className="size-4" />
           <span>Data akumulasi seluruh waktu</span>
         </div>

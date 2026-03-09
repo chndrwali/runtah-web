@@ -57,33 +57,33 @@ export function HistoryClient() {
   const { data: statsData } = useQuery(trpc.history.getStats.queryOptions());
 
   return (
-    <div className="flex-1 overflow-y-auto p-4 md:p-8 bg-background-light dark:bg-background-dark">
+    <div className="flex-1 overflow-y-auto p-4 md:p-8 bg-background">
       <div className="max-w-6xl mx-auto space-y-6">
         {/* Search & Filter Bar */}
         <div className="flex flex-wrap gap-4 items-center justify-between">
           <div className="relative w-full max-w-sm">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 size-5" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground size-5" />
             <input
               value={search}
               onChange={(e) => {
                 setSearch(e.target.value);
                 if (page !== 1) setPage(1);
               }}
-              className="w-full pl-10 pr-4 py-2 bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 rounded-xl focus:ring-primary focus:border-primary text-sm shadow-sm"
+              className="w-full pl-10 pr-4 py-2 bg-card border border-border rounded-xl focus:ring-primary focus:border-primary text-sm shadow-sm"
               placeholder="Cari kategori atau tanggal..."
               type="text"
             />
           </div>
           <div className="flex gap-2 w-full sm:w-auto mt-2 sm:mt-0">
             <div className="relative">
-              <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 size-4 pointer-events-none" />
+              <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground size-4 pointer-events-none" />
               <select
                 value={dateFilter}
                 onChange={(e) => {
                   setDateFilter(e.target.value as "7D" | "30D" | "ALL");
                   setPage(1);
                 }}
-                className="appearance-none pl-9 pr-8 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl text-sm font-medium hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors shadow-sm focus:ring-primary focus:border-primary cursor-pointer"
+                className="appearance-none pl-9 pr-8 py-2 bg-card border border-border rounded-xl text-sm font-medium hover:bg-accent/50 transition-colors shadow-sm focus:ring-primary focus:border-primary cursor-pointer"
               >
                 <option value="ALL">Semua Waktu</option>
                 <option value="30D">30 Hari Terakhir</option>
@@ -92,7 +92,7 @@ export function HistoryClient() {
             </div>
 
             <div className="relative">
-              <Filter className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 size-4 pointer-events-none" />
+              <Filter className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground size-4 pointer-events-none" />
               <select
                 value={statusFilter}
                 onChange={(e) => {
@@ -105,7 +105,7 @@ export function HistoryClient() {
                   );
                   setPage(1);
                 }}
-                className="appearance-none pl-9 pr-8 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl text-sm font-medium hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors shadow-sm focus:ring-primary focus:border-primary cursor-pointer"
+                className="appearance-none pl-9 pr-8 py-2 bg-card border border-border rounded-xl text-sm font-medium hover:bg-accent/50 transition-colors shadow-sm focus:ring-primary focus:border-primary cursor-pointer"
               >
                 <option value="ALL">Semua Status</option>
                 <option value="COMPLETED">Selesai</option>
@@ -129,8 +129,8 @@ export function HistoryClient() {
         {!isLoading && historyData ? (
           <>
             {/* Pagination Controls */}
-            <div className="px-6 py-4 border border-slate-200 dark:border-slate-800 rounded-xl bg-white dark:bg-slate-900 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-sm">
-              <p className="text-sm text-slate-500">
+            <div className="px-6 py-4 border border-border rounded-xl bg-card flex flex-col sm:flex-row items-center justify-between gap-4 shadow-sm">
+              <p className="text-sm text-muted-foreground">
                 Menampilkan{" "}
                 {historyData.data.length > 0 ? (page - 1) * LIMIT_TABLE + 1 : 0}
                 -{Math.min(page * LIMIT_TABLE, historyData.pagination.total)}{" "}
@@ -141,19 +141,19 @@ export function HistoryClient() {
                 <button
                   onClick={() => setPage((p) => Math.max(1, p - 1))}
                   disabled={!historyData.pagination.hasPrev}
-                  className="size-9 flex items-center justify-center rounded-lg border border-slate-200 dark:border-slate-800 text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors disabled:opacity-50"
+                  className="size-9 flex items-center justify-center rounded-lg border border-border text-muted-foreground hover:bg-accent/50 transition-colors disabled:opacity-50"
                 >
                   <ChevronLeft className="size-5" />
                 </button>
 
-                <div className="flex items-center justify-center px-4 rounded-lg bg-primary text-white font-bold text-sm shadow-sm">
+                <div className="flex items-center justify-center px-4 rounded-lg bg-primary text-primary-foreground font-bold text-sm shadow-sm">
                   {page}
                 </div>
 
                 <button
                   onClick={() => setPage((p) => p + 1)}
                   disabled={!historyData.pagination.hasNext}
-                  className="size-9 flex items-center justify-center rounded-lg border border-slate-200 dark:border-slate-800 text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors disabled:opacity-50"
+                  className="size-9 flex items-center justify-center rounded-lg border border-border text-muted-foreground hover:bg-accent/50 transition-colors disabled:opacity-50"
                 >
                   <ChevronRight className="size-5" />
                 </button>
@@ -162,12 +162,12 @@ export function HistoryClient() {
 
             {/* Statistics Summary */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4">
-              <div className="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm flex items-center gap-4 hover:border-primary/30 transition-colors">
-                <div className="size-12 rounded-full bg-emerald-100 dark:bg-emerald-900/40 flex items-center justify-center text-emerald-600 dark:text-emerald-400">
+              <div className="bg-card p-6 rounded-xl border border-border shadow-sm flex items-center gap-4 hover:border-primary/30 transition-colors">
+                <div className="size-12 rounded-full bg-emerald-500/10 flex items-center justify-center text-emerald-600 dark:text-emerald-400">
                   <CheckCircle2 className="size-6" />
                 </div>
                 <div>
-                  <p className="text-xs font-medium text-slate-500 uppercase">
+                  <p className="text-xs font-medium text-muted-foreground uppercase">
                     Total Scan Berhasil
                   </p>
                   <p className="text-2xl font-bold">
@@ -176,12 +176,12 @@ export function HistoryClient() {
                 </div>
               </div>
 
-              <div className="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm flex items-center gap-4 hover:border-primary/30 transition-colors">
-                <div className="size-12 rounded-full bg-blue-100 dark:bg-blue-900/40 flex items-center justify-center text-blue-600 dark:text-blue-400">
+              <div className="bg-card p-6 rounded-xl border border-border shadow-sm flex items-center gap-4 hover:border-primary/30 transition-colors">
+                <div className="size-12 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-600 dark:text-blue-400">
                   <Leaf className="size-6" />
                 </div>
                 <div>
-                  <p className="text-xs font-medium text-slate-500 uppercase">
+                  <p className="text-xs font-medium text-muted-foreground uppercase">
                     Sampah Terdaur Ulang
                   </p>
                   <p className="text-2xl font-bold">
@@ -190,12 +190,12 @@ export function HistoryClient() {
                 </div>
               </div>
 
-              <div className="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm flex items-center gap-4 hover:border-primary/30 transition-colors">
-                <div className="size-12 rounded-full bg-amber-100 dark:bg-amber-900/40 flex items-center justify-center text-amber-600 dark:text-amber-400">
+              <div className="bg-card p-6 rounded-xl border border-border shadow-sm flex items-center gap-4 hover:border-primary/30 transition-colors">
+                <div className="size-12 rounded-full bg-amber-500/10 flex items-center justify-center text-amber-600 dark:text-amber-400">
                   <Star className="size-6 shrink-0 fill-amber-600 dark:fill-amber-400" />
                 </div>
                 <div>
-                  <p className="text-xs font-medium text-slate-500 uppercase">
+                  <p className="text-xs font-medium text-muted-foreground uppercase">
                     Kontribusi Poin
                   </p>
                   <p className="text-2xl font-bold text-amber-600 dark:text-amber-400">

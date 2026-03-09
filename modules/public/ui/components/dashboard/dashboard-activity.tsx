@@ -29,9 +29,9 @@ export function DashboardActivity() {
   );
 
   return (
-    <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800 overflow-hidden">
-      <div className="p-6 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
-        <h3 className="text-xl font-bold text-slate-900 dark:text-white">
+    <div className="bg-card rounded-2xl shadow-sm border border-border overflow-hidden">
+      <div className="p-6 border-b border-border flex items-center justify-between">
+        <h3 className="text-xl font-bold text-foreground">
           Aktivitas Terakhir
         </h3>
         <Link

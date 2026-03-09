@@ -41,52 +41,52 @@ export const dashboardColumns: ColumnDef<TrashTransaction>[] = [
       const category = row.getValue("aiCategory") as string;
 
       let Icon = Package;
-      let iconBgClass = "bg-slate-100 dark:bg-slate-800";
-      let iconTextClass = "text-slate-600 dark:text-slate-400";
+      let iconBgClass = "bg-muted";
+      let iconTextClass = "text-muted-foreground";
 
       switch (category) {
         case "Baterai":
           Icon = Battery;
-          iconBgClass = "bg-red-100 dark:bg-red-900/30";
+          iconBgClass = "bg-red-500/10";
           iconTextClass = "text-red-600 dark:text-red-400";
           break;
         case "Biologis":
           Icon = Leaf;
-          iconBgClass = "bg-emerald-100 dark:bg-emerald-900/30";
+          iconBgClass = "bg-emerald-500/10";
           iconTextClass = "text-emerald-600 dark:text-emerald-400";
           break;
         case "Plastik":
           Icon = Droplet;
-          iconBgClass = "bg-blue-100 dark:bg-blue-900/30";
+          iconBgClass = "bg-blue-500/10";
           iconTextClass = "text-blue-600 dark:text-blue-400";
           break;
         case "Kardus":
         case "Kertas":
           Icon = FileText;
-          iconBgClass = "bg-amber-100 dark:bg-amber-900/30";
+          iconBgClass = "bg-amber-500/10";
           iconTextClass = "text-amber-600 dark:text-amber-400";
           break;
         case "Kaca Coklat":
         case "Kaca Hijau":
         case "Kaca Putih":
           Icon = GlassWater;
-          iconBgClass = "bg-cyan-100 dark:bg-cyan-900/30";
+          iconBgClass = "bg-cyan-500/10";
           iconTextClass = "text-cyan-600 dark:text-cyan-400";
           break;
         case "Pakaian":
         case "Sepatu":
           Icon = Shirt;
-          iconBgClass = "bg-indigo-100 dark:bg-indigo-900/30";
+          iconBgClass = "bg-indigo-500/10";
           iconTextClass = "text-indigo-600 dark:text-indigo-400";
           break;
         case "Logam":
           Icon = Wrench;
-          iconBgClass = "bg-slate-200 dark:bg-slate-700";
+          iconBgClass = "bg-slate-500/10";
           iconTextClass = "text-slate-700 dark:text-slate-300";
           break;
         case "Residu":
           Icon = HelpCircle;
-          iconBgClass = "bg-neutral-100 dark:bg-neutral-800";
+          iconBgClass = "bg-neutral-500/10";
           iconTextClass = "text-neutral-600 dark:text-neutral-400";
           break;
         default:
@@ -101,9 +101,7 @@ export const dashboardColumns: ColumnDef<TrashTransaction>[] = [
           >
             <Icon className="size-5" />
           </div>
-          <span className="font-medium text-slate-900 dark:text-white">
-            {category}
-          </span>
+          <span className="font-medium text-foreground">{category}</span>
         </div>
       );
     },
@@ -136,7 +134,7 @@ export const dashboardColumns: ColumnDef<TrashTransaction>[] = [
       }
 
       return (
-        <span className="text-sm text-slate-500 dark:text-slate-400 font-medium">
+        <span className="text-sm text-muted-foreground font-medium">
           {dateLabel}
         </span>
       );
@@ -173,7 +171,7 @@ export const dashboardColumns: ColumnDef<TrashTransaction>[] = [
           <Button
             variant="ghost"
             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-            className="-ml-4 hover:bg-slate-100 dark:hover:bg-slate-800"
+            className="-ml-4 hover:bg-accent/50"
           >
             Status
             <ArrowUpDown className="ml-2 h-4 w-4" />
@@ -186,24 +184,21 @@ export const dashboardColumns: ColumnDef<TrashTransaction>[] = [
 
       let StatusIcon = Clock;
       let label = "Menunggu";
-      let containerClass =
-        "bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300";
+      let containerClass = "bg-slate-500/10 text-slate-700 dark:text-slate-300";
 
       if (status === "COMPLETED") {
         StatusIcon = CheckCircle2;
         label = "Selesai";
         containerClass =
-          "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-400";
+          "bg-emerald-500/10 text-emerald-700 dark:text-emerald-400";
       } else if (status === "CANCELLED" || status === "FAILED") {
         StatusIcon = XCircle;
         label = "Dibatalkan";
-        containerClass =
-          "bg-rose-100 text-rose-700 dark:bg-rose-900/40 dark:text-rose-400";
+        containerClass = "bg-rose-500/10 text-rose-700 dark:text-rose-400";
       } else if (status === "IN_PROGRESS") {
         StatusIcon = AlertCircle;
         label = "Diproses";
-        containerClass =
-          "bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-400";
+        containerClass = "bg-blue-500/10 text-blue-700 dark:text-blue-400";
       }
 
       return (

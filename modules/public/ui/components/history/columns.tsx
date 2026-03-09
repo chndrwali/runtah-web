@@ -16,7 +16,7 @@ export const columns: ColumnDef<TrashTransaction>[] = [
     cell: ({ row }) => {
       const imageUrl = row.getValue("imageUrl") as string | null;
       return (
-        <div className="size-12 rounded-lg bg-slate-100 dark:bg-slate-800 overflow-hidden border border-slate-200 dark:border-slate-700 relative">
+        <div className="size-12 rounded-lg bg-muted overflow-hidden border border-border relative">
           {imageUrl ? (
             <Image
               src={imageUrl}
@@ -25,7 +25,7 @@ export const columns: ColumnDef<TrashTransaction>[] = [
               className="object-cover"
             />
           ) : (
-            <div className="w-full h-full flex items-center justify-center text-slate-400">
+            <div className="w-full h-full flex items-center justify-center text-muted-foreground">
               No Image
             </div>
           )}
@@ -68,10 +68,10 @@ export const columns: ColumnDef<TrashTransaction>[] = [
 
       return (
         <div>
-          <div className="text-sm font-semibold text-slate-900 dark:text-white">
+          <div className="text-sm font-semibold text-foreground">
             {category}
           </div>
-          <div className="text-xs text-slate-500">{subType}</div>
+          <div className="text-xs text-muted-foreground">{subType}</div>
         </div>
       );
     },
@@ -105,7 +105,7 @@ export const columns: ColumnDef<TrashTransaction>[] = [
     cell: ({ row }) => {
       const date = row.getValue("createdAt") as Date;
       return (
-        <span className="text-sm text-slate-600 dark:text-slate-400">
+        <span className="text-sm text-muted-foreground">
           {format(new Date(date), "dd MMM yyyy", { locale: id })}
         </span>
       );
@@ -153,7 +153,7 @@ export const columns: ColumnDef<TrashTransaction>[] = [
       if (status === "COMPLETED") {
         return (
           <div className="text-center">
-            <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-400">
+            <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
               Selesai
             </span>
           </div>
@@ -162,7 +162,7 @@ export const columns: ColumnDef<TrashTransaction>[] = [
       if (status === "PENDING") {
         return (
           <div className="text-center">
-            <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400">
+            <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-slate-500/10 text-slate-600 dark:text-slate-400">
               Menunggu
             </span>
           </div>
@@ -170,7 +170,7 @@ export const columns: ColumnDef<TrashTransaction>[] = [
       }
       return (
         <div className="text-center">
-          <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-400">
+          <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-blue-500/10 text-blue-600 dark:text-blue-400">
             {status}
           </span>
         </div>
@@ -185,7 +185,7 @@ export const columns: ColumnDef<TrashTransaction>[] = [
           {" "}
           <Link
             href={`/user/history/${row.original.id}`}
-            className="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-slate-100 dark:hover:bg-slate-800 h-9 px-3 rounded-lg text-primary"
+            className="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-9 px-3 rounded-lg text-primary"
           >
             {" "}
             Detail <ChevronRight className="ml-1 size-4" />{" "}
