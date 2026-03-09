@@ -32,14 +32,14 @@ export function ScanResultSection({ id, show = true }: ScanResultSectionProps) {
     return (
       <div className="flex-1 flex flex-col items-center justify-center h-[calc(100vh-80px)]">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mb-4"></div>
-        <p className="text-slate-500">Memuat hasil...</p>
+        <p className="text-muted-foreground">Memuat hasil...</p>
       </div>
     );
   }
 
   if (!scan) {
     return (
-      <div className="flex-1 flex flex-col items-center justify-center p-8 text-center text-slate-500">
+      <div className="flex-1 flex flex-col items-center justify-center p-8 text-center text-muted-foreground">
         <p>Data scan tidak ditemukan.</p>
         <Button onClick={() => router.push("/user/ai")} className="mt-4">
           Kembali ke Scanner

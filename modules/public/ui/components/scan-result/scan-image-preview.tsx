@@ -14,7 +14,7 @@ export function ScanImagePreview({
 }: ScanImagePreviewProps) {
   return (
     <div className="lg:w-[40%] flex flex-col gap-4">
-      <div className="relative aspect-4/5 rounded-3xl overflow-hidden shadow-xl ring-1 ring-slate-200 dark:ring-slate-800 bg-slate-100 dark:bg-slate-800">
+      <div className="relative aspect-4/5 rounded-3xl overflow-hidden shadow-xl ring-1 ring-border bg-muted">
         {imageUrl ? (
           <Image
             src={imageUrl}
@@ -23,7 +23,7 @@ export function ScanImagePreview({
             className="object-cover"
           />
         ) : (
-          <div className="absolute inset-0 flex items-center justify-center text-slate-400">
+          <div className="absolute inset-0 flex items-center justify-center text-muted-foreground">
             <p>Tidak ada gambar</p>
           </div>
         )}
@@ -37,7 +37,7 @@ export function ScanImagePreview({
         </div>
       </div>
 
-      <div className="flex items-center justify-center gap-2 text-slate-400 text-sm">
+      <div className="flex items-center justify-center gap-2 text-muted-foreground text-sm">
         <Info className="size-4" />
         <span>
           Foto diambil pada{" "}

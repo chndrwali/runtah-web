@@ -15,17 +15,15 @@ import {
 
 export function ScanInfoSidebar() {
   return (
-    <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 shadow-sm border border-slate-100 dark:border-slate-800 h-fit">
+    <div className="bg-card text-card-foreground rounded-3xl p-6 shadow-sm border border-border h-fit">
       <div className="flex items-center gap-3 mb-6">
         <div className="p-2 bg-primary/10 rounded-lg text-primary">
           <HelpCircle className="size-5" />
         </div>
-        <h3 className="text-xl font-bold text-slate-900 dark:text-white">
-          Cara Scan
-        </h3>
+        <h3 className="text-xl font-bold text-foreground">Cara Scan</h3>
       </div>
 
-      <p className="text-sm text-slate-500 dark:text-slate-400 mb-6">
+      <p className="text-sm text-muted-foreground mb-6">
         Arahkan kamera ke sampah Anda. AI kami akan mendeteksi salah satu
         kategori di bawah ini:
       </p>
@@ -47,7 +45,7 @@ export function ScanInfoSidebar() {
 
       <div className="p-4 bg-primary/5 border border-primary/10 rounded-2xl flex gap-3">
         <Lightbulb className="text-primary shrink-0 size-5" />
-        <p className="text-xs leading-relaxed text-slate-600 dark:text-slate-400">
+        <p className="text-xs leading-relaxed text-muted-foreground">
           <strong>Tips:</strong> Pastikan pencahayaan terang untuk akurasi
           maksimal.
         </p>
@@ -64,7 +62,7 @@ function CategoryItem({
   label: string;
 }) {
   return (
-    <div className="flex items-center gap-3 p-2.5 rounded-xl border border-slate-50 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/50">
+    <div className="flex items-center gap-3 p-2.5 rounded-xl border border-border bg-muted">
       <Icon className="text-primary size-4" />
       <span className="text-sm font-medium">{label}</span>
     </div>

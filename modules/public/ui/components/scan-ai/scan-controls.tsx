@@ -29,10 +29,10 @@ export function ScanControls({
         disabled={isModelLoading || isScanning}
         className="group flex flex-col items-center gap-2 disabled:opacity-50"
       >
-        <div className="size-14 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-full flex items-center justify-center shadow-md transition-all active:scale-95">
+        <div className="size-14 bg-muted hover:bg-accent text-foreground rounded-full flex items-center justify-center shadow-md transition-all active:scale-95">
           <ImagePlus className="size-6" />
         </div>
-        <span className="text-xs font-semibold text-slate-600 dark:text-slate-400">
+        <span className="text-xs font-semibold text-muted-foreground">
           Galeri
         </span>
       </button>
@@ -44,14 +44,12 @@ export function ScanControls({
       >
         <div className="size-20 bg-primary hover:bg-primary/90 rounded-full flex items-center justify-center shadow-lg shadow-primary/40 ring-4 ring-primary/20 transition-all active:scale-95 relative">
           {isScanning ? (
-            <div className="size-8 border-4 border-white border-t-transparent rounded-full animate-spin" />
+            <div className="size-8 border-4 border-background border-t-transparent rounded-full animate-spin" />
           ) : (
-            <Camera className="text-white size-8" />
+            <Camera className="text-primary-foreground size-8" />
           )}
         </div>
-        <span className="text-sm font-bold text-slate-700 dark:text-slate-300">
-          Capture
-        </span>
+        <span className="text-sm font-bold text-foreground">Capture</span>
       </button>
 
       {/* Invisible placeholder for visual balance */}

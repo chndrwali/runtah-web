@@ -10,7 +10,7 @@ export function ScanCameraFeed({
   isModelLoading,
 }: ScanCameraFeedProps) {
   return (
-    <div className="relative w-full aspect-4/3 sm:aspect-video bg-slate-900 dark:bg-black rounded-3xl overflow-hidden shadow-2xl flex items-center justify-center border-4 border-white dark:border-slate-800">
+    <div className="relative w-full aspect-4/3 sm:aspect-video bg-black rounded-3xl overflow-hidden shadow-2xl flex items-center justify-center border-4 border-border">
       {/* The actual video feed */}
       <video
         ref={videoRef}
@@ -41,7 +41,7 @@ export function ScanCameraFeed({
       </div>
 
       <div className="absolute bottom-6 right-6 z-20">
-        <div className="px-4 py-2 bg-primary/90 text-white rounded-xl text-sm font-bold shadow-lg backdrop-blur-sm">
+        <div className="px-4 py-2 bg-primary/90 text-primary-foreground rounded-xl text-sm font-bold shadow-lg backdrop-blur-sm">
           {isModelLoading ? "Memuat AI..." : "Ready to Scan"}
         </div>
       </div>
