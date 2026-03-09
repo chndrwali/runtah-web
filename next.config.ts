@@ -10,6 +10,10 @@ const nextConfig: NextConfig = {
         hostname: "utfs.io",
         //change to specific domain in uploadthing
       },
+      {
+        protocol: "https",
+        hostname: "lh3.googleusercontent.com",
+      },
     ],
   },
 };

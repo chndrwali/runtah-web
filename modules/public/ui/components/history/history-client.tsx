@@ -17,12 +17,15 @@ import {
 } from "lucide-react";
 import { LIMIT_TABLE } from "@/lib/utils";
 import { SortingState } from "@tanstack/react-table";
+import { useDebounce } from "@/hooks/use-debounce";
 
 export function HistoryClient() {
   const trpc = useTRPC();
 
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState("");
+  const debouncedSearch = useDebounce(search, 300);
+
   const [sorting, setSorting] = useState<SortingState>([]);
   const [dateFilter, setDateFilter] = useState<"7D" | "30D" | "ALL">("30D");
   const [statusFilter, setStatusFilter] = useState<
@@ -36,7 +39,7 @@ export function HistoryClient() {
     trpc.history.getAll.queryOptions({
       page,
       limit: LIMIT_TABLE,
-      search,
+      search: debouncedSearch,
       sortBy: trpcSortBy as
         | "createdAt"
         | "updatedAt"
@@ -123,7 +126,7 @@ export function HistoryClient() {
         />
 
         {/* Pagination & Stats Summary Only if Data Loads */}
-        {!isLoading && historyData && (
+        {!isLoading && historyData ? (
           <>
             {/* Pagination Controls */}
             <div className="px-6 py-4 border border-slate-200 dark:border-slate-800 rounded-xl bg-white dark:bg-slate-900 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-sm">
@@ -202,7 +205,7 @@ export function HistoryClient() {
               </div>
             </div>
           </>
-        )}
+        ) : null}
       </div>
     </div>
   );
