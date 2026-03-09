@@ -300,10 +300,10 @@ export default function AppSidebar() {
 
                 <DropdownMenuGroup>
                   <DropdownMenuItem
-                    onClick={() => router.push("/admin/profile")}
+                    onClick={() => router.push("/user/profile")}
                   >
                     <UserCircle className="mr-2 h-4 w-4" />
-                    Profile
+                    Profil
                   </DropdownMenuItem>
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator />

@@ -6,7 +6,7 @@ export const PointsSection = () => {
     <PageContainer
       pageTitle="Tukar Poin"
       pageDescription="Tukarkan poin Anda dengan berbagai reward menarik"
-      scrollable={true}
+      scrollable={false}
     >
       <div className="flex-1 flex flex-col -mx-4 -mb-4 md:-mx-6 md:-mb-6 pt-4 border-t border-slate-200 dark:border-slate-800">
         <PointsClient />

@@ -6,7 +6,7 @@ import {
   History,
   LayoutDashboard,
   MapIcon,
-  User,
+  UserCircle,
 } from "lucide-react";
 
 export const navPublics = [
@@ -101,6 +101,6 @@ export const searchItems: SearchItem[] = [
     title: "Profil",
     url: "/user/profile",
     group: "Settings",
-    icon: User,
+    icon: UserCircle,
   },
 ];

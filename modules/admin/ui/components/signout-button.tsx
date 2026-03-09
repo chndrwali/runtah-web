@@ -24,7 +24,7 @@ export const SignoutButton = () => {
       await signOut({
         fetchOptions: {
           onSuccess: () => {
-            appToast.success("Logout successfully");
+            appToast.success("Keluar Berhasil");
             router.push("/login");
           },
           onError: (ctx) => {
@@ -43,18 +43,18 @@ export const SignoutButton = () => {
         className="text-red-500 focus:text-red-500 focus:bg-red-50 dark:focus:bg-red-950/20"
       >
         <LogOutIcon className="mr-2 h-4 w-4" />
-        Sign Out
+        Keluar
       </DropdownMenuItem>
 
       <DeleteConfirmationDialog
         open={showLogoutAlert}
         onOpenChange={setShowLogoutAlert}
-        title="Sign out of your account?"
-        description="You will need to sign in again to access the dashboard."
+        title="Keluar dari akun Anda?"
+        description="Anda harus masuk kembali untuk mengakses dashboard."
         onConfirm={handleLogoutConfirm}
         isDeleting={isPending}
-        confirmationKeyword="SIGNOUT"
-        confirmationText="Sign out"
+        confirmationKeyword="KELUAR"
+        confirmationText="Keluar"
       />
     </>
   );
