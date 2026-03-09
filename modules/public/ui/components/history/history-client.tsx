@@ -15,19 +15,39 @@ import {
   Leaf,
   Star,
 } from "lucide-react";
+import { LIMIT_TABLE } from "@/lib/utils";
+import { SortingState } from "@tanstack/react-table";
 
 export function HistoryClient() {
   const trpc = useTRPC();
 
   const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(10);
   const [search, setSearch] = useState("");
+  const [sorting, setSorting] = useState<SortingState>([]);
+  const [dateFilter, setDateFilter] = useState<"7D" | "30D" | "ALL">("30D");
+  const [statusFilter, setStatusFilter] = useState<
+    "ALL" | "PENDING" | "COMPLETED" | "FAILED"
+  >("ALL");
+
+  const trpcSortBy = sorting.length > 0 ? sorting[0].id : "createdAt";
+  const trpcSortOrder = sorting.length > 0 && sorting[0].desc ? "desc" : "asc";
 
   const { data: historyData, isLoading } = useQuery(
     trpc.history.getAll.queryOptions({
       page,
-      limit,
+      limit: LIMIT_TABLE,
       search,
+      sortBy: trpcSortBy as
+        | "createdAt"
+        | "updatedAt"
+        | "aiAccuracy"
+        | "pointsEarned"
+        | "finalWeight"
+        | "aiCategory"
+        | "status",
+      sortOrder: trpcSortOrder,
+      dateFilter,
+      status: statusFilter,
     }),
   );
 
@@ -51,15 +71,45 @@ export function HistoryClient() {
               type="text"
             />
           </div>
-          <div className="flex gap-2">
-            <button className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl text-sm font-medium hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors shadow-sm">
-              <Calendar className="size-4" />
-              30 Hari Terakhir
-            </button>
-            <button className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl text-sm font-medium hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors shadow-sm">
-              <Filter className="size-4" />
-              Filter
-            </button>
+          <div className="flex gap-2 w-full sm:w-auto mt-2 sm:mt-0">
+            <div className="relative">
+              <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 size-4 pointer-events-none" />
+              <select
+                value={dateFilter}
+                onChange={(e) => {
+                  setDateFilter(e.target.value as "7D" | "30D" | "ALL");
+                  setPage(1);
+                }}
+                className="appearance-none pl-9 pr-8 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl text-sm font-medium hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors shadow-sm focus:ring-primary focus:border-primary cursor-pointer"
+              >
+                <option value="ALL">Semua Waktu</option>
+                <option value="30D">30 Hari Terakhir</option>
+                <option value="7D">7 Hari Terakhir</option>
+              </select>
+            </div>
+
+            <div className="relative">
+              <Filter className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 size-4 pointer-events-none" />
+              <select
+                value={statusFilter}
+                onChange={(e) => {
+                  setStatusFilter(
+                    e.target.value as
+                      | "ALL"
+                      | "PENDING"
+                      | "COMPLETED"
+                      | "FAILED",
+                  );
+                  setPage(1);
+                }}
+                className="appearance-none pl-9 pr-8 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl text-sm font-medium hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors shadow-sm focus:ring-primary focus:border-primary cursor-pointer"
+              >
+                <option value="ALL">Semua Status</option>
+                <option value="COMPLETED">Selesai</option>
+                <option value="PENDING">Menunggu</option>
+                <option value="FAILED">Gagal</option>
+              </select>
+            </div>
           </div>
         </div>
 
@@ -68,6 +118,8 @@ export function HistoryClient() {
           columns={columns}
           data={historyData?.data || []}
           isLoading={isLoading}
+          sorting={sorting}
+          onSortingChange={setSorting}
         />
 
         {/* Pagination & Stats Summary Only if Data Loads */}
@@ -77,9 +129,9 @@ export function HistoryClient() {
             <div className="px-6 py-4 border border-slate-200 dark:border-slate-800 rounded-xl bg-white dark:bg-slate-900 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-sm">
               <p className="text-sm text-slate-500">
                 Menampilkan{" "}
-                {historyData.data.length > 0 ? (page - 1) * limit + 1 : 0}-
-                {Math.min(page * limit, historyData.pagination.total)} dari{" "}
-                {historyData.pagination.total} transaksi
+                {historyData.data.length > 0 ? (page - 1) * LIMIT_TABLE + 1 : 0}
+                -{Math.min(page * LIMIT_TABLE, historyData.pagination.total)}{" "}
+                dari {historyData.pagination.total} transaksi
               </p>
 
               <div className="flex gap-2">

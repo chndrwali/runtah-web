@@ -5,6 +5,8 @@ import { format } from "date-fns";
 import { id } from "date-fns/locale";
 import Image from "next/image";
 import { TrashTransaction } from "@/app/generated/prisma/client";
+import { Button } from "@/components/ui/button";
+import { ArrowUpDown } from "lucide-react";
 
 export const columns: ColumnDef<TrashTransaction>[] = [
   {
@@ -32,7 +34,18 @@ export const columns: ColumnDef<TrashTransaction>[] = [
   },
   {
     accessorKey: "aiCategory",
-    header: "Kategori",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className="px-0 hover:bg-transparent"
+        >
+          Kategori
+          <ArrowUpDown className="ml-2 size-4" />
+        </Button>
+      );
+    },
     cell: ({ row }) => {
       // Basic grouping based on Runtah categories
       const category = row.getValue("aiCategory") as string;
@@ -67,7 +80,18 @@ export const columns: ColumnDef<TrashTransaction>[] = [
   },
   {
     accessorKey: "createdAt",
-    header: "Tanggal",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className="px-0 hover:bg-transparent"
+        >
+          Tanggal
+          <ArrowUpDown className="ml-2 size-4" />
+        </Button>
+      );
+    },
     cell: ({ row }) => {
       const date = row.getValue("createdAt") as Date;
       return (
@@ -79,7 +103,18 @@ export const columns: ColumnDef<TrashTransaction>[] = [
   },
   {
     accessorKey: "pointsEarned",
-    header: "Poin",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className="px-0 hover:bg-transparent"
+        >
+          Poin
+          <ArrowUpDown className="ml-2 size-4" />
+        </Button>
+      );
+    },
     cell: ({ row }) => {
       const pts = row.getValue("pointsEarned") as number;
       return (
@@ -89,7 +124,20 @@ export const columns: ColumnDef<TrashTransaction>[] = [
   },
   {
     accessorKey: "status",
-    header: () => <div className="text-center">Status</div>,
+    header: ({ column }) => {
+      return (
+        <div className="flex justify-center">
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+            className="px-0 hover:bg-transparent"
+          >
+            Status
+            <ArrowUpDown className="ml-2 size-4" />
+          </Button>
+        </div>
+      );
+    },
     cell: ({ row }) => {
       const status = row.getValue("status") as string;
       if (status === "COMPLETED") {

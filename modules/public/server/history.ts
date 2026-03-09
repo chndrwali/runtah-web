@@ -15,10 +15,13 @@ const historyQuerySchema = z.object({
       "aiAccuracy",
       "pointsEarned",
       "finalWeight",
+      "aiCategory",
+      "status",
     ])
     .default("createdAt"),
   sortOrder: z.enum(["asc", "desc"]).default("desc"),
   status: z.string().optional(),
+  dateFilter: z.enum(["7D", "30D", "ALL"]).default("ALL"),
 });
 
 export const historyRouter = createTRPCRouter({
@@ -37,12 +40,29 @@ export const historyRouter = createTRPCRouter({
         });
       }
 
-      const { page, limit, search, sortBy, sortOrder, status } = input;
+      const { page, limit, search, sortBy, sortOrder, status, dateFilter } =
+        input;
       const skip = (page - 1) * limit;
+
+      // Handle date filters
+      let dateCondition = {};
+      const now = new Date();
+      if (dateFilter === "7D") {
+        dateCondition = {
+          gte: new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000),
+        };
+      } else if (dateFilter === "30D") {
+        dateCondition = {
+          gte: new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000),
+        };
+      }
 
       const where = {
         userId,
-        ...(status ? { status } : {}),
+        ...(status && status !== "ALL" ? { status } : {}),
+        ...(Object.keys(dateCondition).length > 0
+          ? { createdAt: dateCondition }
+          : {}),
         ...(search
           ? {
               OR: [
