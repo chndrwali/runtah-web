@@ -5,6 +5,13 @@ import { LIMIT_TABLE } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: "Redeem Point",
+  description:
+    "Tukarkan poin yang telah Anda kumpulkan dari daur ulang sampah dengan berbagai hadiah menarik di katalog Robah.",
+  openGraph: {
+    title: "Tukar Poin | Robah",
+    description:
+      "Tukarkan poin yang telah Anda kumpulkan dari daur ulang sampah dengan berbagai hadiah menarik di katalog Robah.",
+  },
 };
 
 export default async function Page() {

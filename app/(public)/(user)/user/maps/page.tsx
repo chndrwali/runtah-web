@@ -4,6 +4,13 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Peta Drop-off",
+  description:
+    "Cari lokasi titik kumpul dan drop-off sampah daur ulang terdekat di sekitarmu menggunakan Peta Robah.",
+  openGraph: {
+    title: "Peta Drop-off Sampah | Robah",
+    description:
+      "Cari lokasi titik kumpul dan drop-off sampah daur ulang terdekat di sekitarmu menggunakan Peta Robah.",
+  },
 };
 
 export default async function Page() {

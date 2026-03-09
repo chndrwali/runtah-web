@@ -16,17 +16,17 @@ export async function generateMetadata({
 
     return {
       title: `Hasil Klasifikasi AI ${ai.aiCategory}`,
-      description: ai.status,
+      description: `Klasifikasi sampah ${ai.aiCategory} dengan teknologi AI. Status: ${ai.status}`,
       openGraph: {
         title: `Hasil Klasifikasi AI ${ai.aiCategory}`,
-        description: ai.status,
+        description: `Klasifikasi sampah ${ai.aiCategory} dengan teknologi AI. Status: ${ai.status}`,
         url: `/user/ai/${id}`,
         images: ai.imageUrl ? [ai.imageUrl] : [],
       },
       twitter: {
         card: "summary_large_image",
         title: `Hasil Klasifikasi AI ${ai.aiCategory}`,
-        description: ai.status,
+        description: `Klasifikasi sampah ${ai.aiCategory} dengan teknologi AI. Status: ${ai.status}`,
         images: ai.imageUrl ? [ai.imageUrl] : [],
       },
       alternates: {

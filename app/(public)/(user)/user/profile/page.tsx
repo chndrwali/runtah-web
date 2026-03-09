@@ -4,6 +4,13 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Profil User",
+  description:
+    "Kelola informasi akun, target daur ulang, dan pengaturan profil Robah Anda.",
+  openGraph: {
+    title: "Profil User | Robah",
+    description:
+      "Kelola informasi akun, target daur ulang, dan pengaturan profil Robah Anda.",
+  },
 };
 
 export default async function Page() {

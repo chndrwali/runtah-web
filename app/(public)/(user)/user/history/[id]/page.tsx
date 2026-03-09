@@ -15,18 +15,18 @@ export async function generateMetadata({
     const ai = await caller.trash.getScanById({ id });
 
     return {
-      title: `Hasil Klasifikasi AI ${ai.aiCategory}`,
-      description: ai.status,
+      title: `Detail Transaksi ${ai.aiCategory}`,
+      description: `Riwayat klasifikasi sampah ${ai.aiCategory}. Status: ${ai.status}`,
       openGraph: {
-        title: `Hasil Klasifikasi AI ${ai.aiCategory}`,
-        description: ai.status,
-        url: `/user/ai/${id}`,
+        title: `Detail Transaksi ${ai.aiCategory}`,
+        description: `Riwayat klasifikasi sampah ${ai.aiCategory}. Status: ${ai.status}`,
+        url: `/user/history/${id}`,
         images: ai.imageUrl ? [ai.imageUrl] : [],
       },
       twitter: {
         card: "summary_large_image",
-        title: `Hasil Klasifikasi AI ${ai.aiCategory}`,
-        description: ai.status,
+        title: `Detail Transaksi ${ai.aiCategory}`,
+        description: `Riwayat klasifikasi sampah ${ai.aiCategory}. Status: ${ai.status}`,
         images: ai.imageUrl ? [ai.imageUrl] : [],
       },
       alternates: {

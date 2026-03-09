@@ -33,7 +33,41 @@ export const metadata: Metadata = {
     template: "%s | Robah",
   },
   description:
-    "Wujudkan kota yang lebih hijau dengan klasifikasi sampah berbasis AI.",
+    "Wujudkan kota yang lebih hijau dengan klasifikasi sampah berbasis AI. Dapatkan poin dari setiap sampah yang kamu daur ulang.",
+  keywords: [
+    "Robah",
+    "Daur Ulang",
+    "Klasifikasi Sampah AI",
+    "Sampah Bandung",
+    "Poin Sampah",
+    "Lingkungan",
+    "Go Green",
+  ],
+  authors: [{ name: "Robah Team" }],
+  openGraph: {
+    type: "website",
+    locale: "id_ID",
+    url: config.env.nextPublicUrl,
+    title: "Robah - Bandung Bersih, Mulai dari Genggamanmu",
+    description:
+      "Wujudkan kota yang lebih hijau dengan klasifikasi sampah berbasis AI. Dapatkan poin dari setiap sampah yang kamu daur ulang.",
+    siteName: "Robah",
+    images: [
+      {
+        url: "/img/illustration.gif",
+        width: 800,
+        height: 600,
+        alt: "Robah Illustration",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Robah - Bandung Bersih, Mulai dari Genggamanmu",
+    description:
+      "Wujudkan kota yang lebih hijau dengan klasifikasi sampah berbasis AI.",
+    images: ["/img/illustration.gif"],
+  },
 };
 
 export default function RootLayout({

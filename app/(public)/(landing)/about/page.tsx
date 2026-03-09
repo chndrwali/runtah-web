@@ -4,6 +4,13 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Tentang Kami",
+  description:
+    "Pelajari lebih lanjut tentang misi Robah dalam mewujudkan pengelolaan sampah yang lebih baik melalui teknologi AI yang inovatif.",
+  openGraph: {
+    title: "Tentang Kami | Robah",
+    description:
+      "Pelajari lebih lanjut tentang misi Robah dalam mewujudkan pengelolaan sampah yang lebih baik melalui teknologi AI yang inovatif.",
+  },
 };
 
 export default async function Page() {

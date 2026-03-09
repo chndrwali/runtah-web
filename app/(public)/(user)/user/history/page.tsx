@@ -5,6 +5,13 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Riwayat Transaksi & Scan",
+  description:
+    "Lihat riwayat lengkap klasifikasi sampah AI dan transaksi poin Anda di Robah.",
+  openGraph: {
+    title: "Riwayat Transaksi & Scan | Robah",
+    description:
+      "Lihat riwayat lengkap klasifikasi sampah AI dan transaksi poin Anda di Robah.",
+  },
 };
 
 export default async function Page() {

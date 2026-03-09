@@ -4,7 +4,13 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Dashboard",
-  description: "Dashboard manajemen sampah Robah",
+  description:
+    "Pantau aktivitas daur ulang, perolehan poin, dan riwayat klasifikasi sampah menggunakan AI di dashboard Robah Anda.",
+  openGraph: {
+    title: "Dashboard | Robah",
+    description:
+      "Pantau aktivitas daur ulang, perolehan poin, dan riwayat klasifikasi sampah menggunakan AI di dashboard Robah Anda.",
+  },
 };
 
 export default async function Page() {
