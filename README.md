@@ -22,7 +22,7 @@ Tujuan utama dari sistem ini adalah **mendorong kebiasaan daur ulang** dengan me
 
 Aplikasi ini dibangun dengan _best practices_ menggunakan teknologi ekosistem modern web:
 
-- **Framework Core:** [Next.js 15](https://nextjs.org/) (App Router, React 19)
+- **Framework Core:** [Next.js 16](https://nextjs.org/) (App Router, React 19)
 - **Styling:** [Tailwind CSS v4](https://tailwindcss.com/) & [shadcn/ui](https://ui.shadcn.com/)
 - **API & Type Safety:** [tRPC](https://trpc.io/) terintegrasi secara _end-to-end_ (E2E) dengan backend
 - **Database ORM:** [Prisma](https://www.prisma.io/)
