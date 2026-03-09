@@ -46,9 +46,10 @@ export const updateUserSchema = z.object({
   image: z.string().url("URL gambar tidak valid").optional().or(z.literal("")),
   area: z.string().optional().or(z.literal("")),
   address: z.string().optional().or(z.literal("")),
+  lat: z.number().optional(),
+  lng: z.number().optional(),
   appGoal: z.string().optional().or(z.literal("")),
   notificationsEnabled: z.boolean().default(false),
-  onboardingCompleted: z.boolean().default(false),
 });
 
 // Type auth form

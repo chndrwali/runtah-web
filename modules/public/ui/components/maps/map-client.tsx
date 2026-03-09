@@ -1,11 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import {
   MapContainer,
   TileLayer,
   Marker,
-  Popup,
   ZoomControl,
   useMap,
 } from "react-leaflet";
@@ -77,7 +76,7 @@ export default function MapClient({
           ${
             isActive
               ? `
-            <div class="bg-white dark:bg-slate-900 border border-primary px-3 py-1.5 rounded-lg shadow-lg mb-1 flex items-center gap-2 absolute bottom-full whitespace-nowrap mb-2 transform -translate-x-1/2 left-1/2 z-50">
+            <div class="bg-white dark:bg-slate-900 border border-primary px-3 py-1.5 rounded-lg shadow-lg mb-1 flex items-center gap-2 absolute bottom-full whitespace-nowrap transform -translate-x-1/2 left-1/2 z-50">
               <div class="size-2 rounded-full bg-primary animate-pulse"></div>
               <span class="text-[10px] font-bold whitespace-nowrap text-slate-800 dark:text-slate-200">${bank.name}</span>
             </div>

@@ -8,7 +8,7 @@ import { appToast } from "@/components/custom/app-toast";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { format } from "date-fns";
 import { id } from "date-fns/locale";
-import { Loader2 } from "lucide-react";
+import { Loader2, PartyPopper } from "lucide-react";
 
 interface Reward {
   id: number;
@@ -157,7 +157,7 @@ export const PointsClient = () => {
           </div>
           <div className="relative z-10 mt-6 md:mt-0">
             <span className="material-symbols-outlined text-8xl opacity-40">
-              celebration
+              <PartyPopper />
             </span>
           </div>
           {/* Background Decoration */}

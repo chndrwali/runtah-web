@@ -132,6 +132,9 @@ export const authRouter = createTRPCRouter({
           area: input.area,
           address: input.address,
           image: input.image,
+          appGoal: input.appGoal,
+          lat: input.lat,
+          lng: input.lng,
           notificationsEnabled: input.notificationsEnabled,
         },
       });

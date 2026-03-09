@@ -1,12 +1,42 @@
 "use client";
 
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { useTRPC } from "@/trpc/client";
 import { appToast } from "@/components/custom/app-toast";
 import { updateUserSchema, UpdateUserFormValues } from "@/lib/form-schema";
+import { SingleImageUpload } from "@/components/custom/image-upload";
+import dynamic from "next/dynamic";
+import { BANDUNG_DISTRICTS, cn } from "@/lib/utils";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
+const LocationPicker = dynamic(
+  () => import("@/components/custom/location-picker"),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="w-full h-48 bg-slate-100 dark:bg-slate-800 rounded-xl flex items-center justify-center border-2 border-slate-300 dark:border-slate-600 animate-pulse">
+        <span className="text-sm font-medium text-slate-400">
+          Memuat Peta...
+        </span>
+      </div>
+    ),
+  },
+);
 import {
   Form,
   FormControl,
@@ -33,6 +63,7 @@ import { Switch } from "@/components/ui/switch";
 export function ProfileForm() {
   const trpc = useTRPC();
   const router = useRouter();
+  const [isAvatarOpen, setIsAvatarOpen] = useState(false);
 
   // Fetch initial profile data
   const { data: userProfile, isLoading: isLoadingProfile } = useQuery(
@@ -64,9 +95,15 @@ export function ProfileForm() {
       address: "",
       image: "",
       appGoal: "",
+      lat: undefined,
+      lng: undefined,
       notificationsEnabled: false,
-      onboardingCompleted: true,
     },
+  });
+
+  const imageValue = useWatch({
+    control: form.control,
+    name: "image",
   });
 
   // Hydrate form when profile data is loaded
@@ -78,9 +115,10 @@ export function ProfileForm() {
         area: userProfile.area || "",
         address: userProfile.address || "",
         image: userProfile.image || "",
-        appGoal: "",
+        appGoal: userProfile.appGoal || "",
+        lat: userProfile.lat || undefined,
+        lng: userProfile.lng || undefined,
         notificationsEnabled: userProfile.notificationsEnabled || false,
-        onboardingCompleted: true,
       });
     }
   }, [userProfile, form]);
@@ -124,10 +162,10 @@ export function ProfileForm() {
             <div className="flex flex-col md:flex-row items-center gap-6">
               <div className="relative group">
                 <div className="size-32 rounded-full overflow-hidden border-4 border-slate-50 dark:border-slate-800 shadow-lg bg-slate-100 relative">
-                  {userProfile?.image ? (
+                  {imageValue || userProfile?.image ? (
                     <Image
-                      src={userProfile.image}
-                      alt={userProfile.name || "Avatar"}
+                      src={imageValue || userProfile?.image || ""}
+                      alt={userProfile?.name || "Avatar"}
                       fill
                       className="object-cover"
                     />
@@ -139,6 +177,7 @@ export function ProfileForm() {
                 </div>
                 <button
                   type="button"
+                  onClick={() => setIsAvatarOpen(true)}
                   className="absolute bottom-1 right-1 size-8 bg-primary text-white rounded-full flex items-center justify-center shadow-md border-2 border-white dark:border-slate-900 transition-transform hover:scale-105"
                 >
                   <Camera className="size-4" />
@@ -263,6 +302,104 @@ export function ProfileForm() {
 
                 <FormField
                   control={form.control}
+                  name="area"
+                  render={({ field }) => (
+                    <FormItem className="space-y-2 md:col-span-2">
+                      <FormLabel className="text-sm font-semibold text-slate-700 dark:text-slate-300">
+                        Kecamatan / Area
+                      </FormLabel>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                        value={field.value || undefined}
+                      >
+                        <FormControl>
+                          <SelectTrigger className="w-full h-11 bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 rounded-lg px-4 text-slate-900 dark:text-slate-100">
+                            <SelectValue placeholder="Pilih area (misal: Coblong, Sukajadi...)" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          {BANDUNG_DISTRICTS.map((district) => (
+                            <SelectItem
+                              key={district}
+                              value={district.toLowerCase()}
+                            >
+                              {district}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="appGoal"
+                  render={({ field }) => (
+                    <FormItem className="space-y-4 md:col-span-2">
+                      <FormLabel className="text-sm font-semibold text-slate-700 dark:text-slate-300">
+                        Tujuan Utama Penggunaan
+                      </FormLabel>
+                      <FormControl>
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                          {[
+                            {
+                              id: "Menyelamatkan Lingkungan",
+                              icon: "🌍",
+                              title: "Menyelamatkan Lingkungan",
+                            },
+                            {
+                              id: "Kumpulkan Poin & Reward",
+                              icon: "🎁",
+                              title: "Kumpulkan Poin & Reward",
+                            },
+                            {
+                              id: "Cari Bank Sampah Terdekat",
+                              icon: "🚚",
+                              title: "Cari Bank Sampah Terdekat",
+                            },
+                          ].map((goal) => {
+                            const isSelected = field.value === goal.id;
+                            return (
+                              <label
+                                key={goal.id}
+                                className="radio-card relative block cursor-pointer"
+                              >
+                                <input
+                                  type="radio"
+                                  className="sr-only"
+                                  checked={isSelected}
+                                  onChange={() => field.onChange(goal.id)}
+                                />
+                                <div
+                                  className={cn(
+                                    "flex flex-col items-center text-center gap-3 p-4 rounded-xl border-2 transition-all hover:border-primary/50",
+                                    isSelected
+                                      ? "border-primary bg-primary/5 shadow-sm"
+                                      : "border-slate-100 dark:border-zinc-800",
+                                  )}
+                                >
+                                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-xl">
+                                    {goal.icon}
+                                  </div>
+                                  <h3 className="text-slate-900 dark:text-slate-100 font-bold text-xs">
+                                    {goal.title}
+                                  </h3>
+                                </div>
+                              </label>
+                            );
+                          })}
+                        </div>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
                   name="address"
                   render={({ field }) => (
                     <FormItem className="space-y-2 md:col-span-2">
@@ -280,6 +417,32 @@ export function ProfileForm() {
                     </FormItem>
                   )}
                 />
+
+                <div className="space-y-2 md:col-span-2 mt-2 border-t border-slate-100 dark:border-slate-800 pt-4">
+                  <FormLabel className="text-sm font-semibold text-slate-700 dark:text-slate-300">
+                    Tandai Titik Lokasi
+                  </FormLabel>
+                  <LocationPicker
+                    defaultPosition={
+                      userProfile?.lat && userProfile?.lng
+                        ? [userProfile.lat, userProfile.lng]
+                        : [-6.914744, 107.60981]
+                    }
+                    onLocationSelect={(lat, lng) => {
+                      form.setValue("lat", lat, {
+                        shouldValidate: true,
+                        shouldDirty: true,
+                      });
+                      form.setValue("lng", lng, {
+                        shouldValidate: true,
+                        shouldDirty: true,
+                      });
+                    }}
+                  />
+                  <p className="text-xs text-muted-foreground mt-1">
+                    Geser map dan klik untuk mengupdate titik penjemputanmu.
+                  </p>
+                </div>
               </div>
             </div>
           </section>
@@ -392,6 +555,32 @@ export function ProfileForm() {
           </footer>
         </form>
       </Form>
+
+      <Dialog open={isAvatarOpen} onOpenChange={setIsAvatarOpen}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle>Ubah Foto Profil</DialogTitle>
+          </DialogHeader>
+          <div className="py-4">
+            <SingleImageUpload
+              value={imageValue}
+              onChange={(url) => {
+                form.setValue("image", url, {
+                  shouldDirty: true,
+                  shouldValidate: true,
+                });
+                setIsAvatarOpen(false);
+              }}
+              onRemove={() =>
+                form.setValue("image", "", {
+                  shouldDirty: true,
+                  shouldValidate: true,
+                })
+              }
+            />
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
