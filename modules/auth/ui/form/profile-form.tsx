@@ -36,7 +36,7 @@ export function ProfileForm() {
 
   // Fetch initial profile data
   const { data: userProfile, isLoading: isLoadingProfile } = useQuery(
-    trpc.user.getProfile.queryOptions(),
+    trpc.auth.getProfile.queryOptions(),
   );
 
   // Fetch Stats Data for the "Aksi" Total since user schema does not have it, only totalPoints/totalWeightSaved
@@ -44,7 +44,7 @@ export function ProfileForm() {
 
   // Mutation to update profile
   const updateProfileMutation = useMutation(
-    trpc.user.updateProfile.mutationOptions({
+    trpc.auth.updateProfile.mutationOptions({
       onSuccess: () => {
         appToast.success("Profil berhasil diperbarui!");
         router.refresh();

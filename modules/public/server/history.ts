@@ -121,4 +121,26 @@ export const historyRouter = createTRPCRouter({
       totalPointsEarned: aggregations._sum.pointsEarned || 0,
     };
   }),
+
+  /**
+   * Get recent activities specifically formatted for the dashboard
+   */
+  getRecentActivities: protectedProcedure.query(async ({ ctx }) => {
+    const userId = ctx.auth.user?.id;
+
+    if (!userId) {
+      throw new TRPCError({
+        code: "UNAUTHORIZED",
+        message: "User tidak valid",
+      });
+    }
+
+    const recentActivities = await prisma.trashTransaction.findMany({
+      where: { userId },
+      orderBy: { createdAt: "desc" },
+      take: 3,
+    });
+
+    return recentActivities;
+  }),
 });
