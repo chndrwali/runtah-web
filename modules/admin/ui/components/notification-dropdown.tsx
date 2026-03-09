@@ -84,16 +84,16 @@ export const NotificationDropdown = () => {
               {unreadCount > 9 ? "9+" : unreadCount}
             </span>
           )} */}
-          <span className="sr-only">Notifications</span>
+          <span className="sr-only">Notifikasi</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-80">
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
-            <p className="text-sm font-medium leading-none">Notifications</p>
+            <p className="text-sm font-medium leading-none">Notifikasi</p>
             <p className="text-xs leading-none text-muted-foreground">
               {/* You have {unreadCount} unread messages */}
-              You have 1 unread messages
+              Kamu tidak memiliki notifikasi
             </p>
           </div>
         </DropdownMenuLabel>
@@ -128,7 +128,7 @@ export const NotificationDropdown = () => {
         )} */}
 
         <div className="py-6 text-center text-sm text-muted-foreground">
-          No new notifications
+          Tidak ada notifikasi baru
         </div>
 
         <DropdownMenuSeparator />
@@ -136,7 +136,7 @@ export const NotificationDropdown = () => {
           asChild
           className="cursor-pointer justify-center text-center font-medium text-primary focus:text-primary"
         >
-          <Link href="/admin/inbox">Read all messages</Link>
+          <Link href="/user/inbox">Baca semua pesan</Link>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

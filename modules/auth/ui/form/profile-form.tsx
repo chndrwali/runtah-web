@@ -2,7 +2,8 @@
 
 import { useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useTransition } from "react";
+import { DeleteConfirmationDialog } from "@/components/custom/alert-dialog-custom";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { useTRPC } from "@/trpc/client";
 import { appToast } from "@/components/custom/app-toast";
@@ -64,6 +65,8 @@ export function ProfileForm() {
   const trpc = useTRPC();
   const router = useRouter();
   const [isAvatarOpen, setIsAvatarOpen] = useState(false);
+  const [showLogoutAlert, setShowLogoutAlert] = useState(false);
+  const [isPending, startTransition] = useTransition();
 
   // Fetch initial profile data
   const { data: userProfile, isLoading: isLoadingProfile } = useQuery(
@@ -127,17 +130,25 @@ export function ProfileForm() {
     updateProfileMutation.mutate(values);
   };
 
-  const handleLogout = async () => {
-    await signOut({
-      fetchOptions: {
-        onSuccess: () => {
-          appToast.success("Berhasil Keluar");
-          router.push("/login");
+  const handleLogoutClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    setShowLogoutAlert(true);
+  };
+
+  const handleLogoutConfirm = () => {
+    startTransition(async () => {
+      await signOut({
+        fetchOptions: {
+          onSuccess: () => {
+            appToast.success("Berhasil Keluar");
+            router.push("/login");
+          },
+          onError: (ctx) => {
+            appToast.error(ctx.error.message);
+          },
         },
-        onError: (ctx) => {
-          appToast.error(ctx.error.message);
-        },
-      },
+      });
+      setShowLogoutAlert(false);
     });
   };
 
@@ -534,7 +545,7 @@ export function ProfileForm() {
           <footer className="flex items-center justify-between py-6">
             <button
               type="button"
-              onClick={handleLogout}
+              onClick={handleLogoutClick}
               className="flex items-center gap-2 text-rose-600 font-semibold text-sm px-4 py-2 rounded-lg hover:bg-rose-50 dark:hover:bg-rose-950/30 transition-colors"
             >
               <LogOut className="size-5" />
@@ -581,6 +592,17 @@ export function ProfileForm() {
           </div>
         </DialogContent>
       </Dialog>
+
+      <DeleteConfirmationDialog
+        open={showLogoutAlert}
+        onOpenChange={setShowLogoutAlert}
+        title="Keluar dari akun Anda?"
+        description="Anda harus masuk kembali untuk mengakses dashboard."
+        onConfirm={handleLogoutConfirm}
+        isDeleting={isPending}
+        confirmationKeyword="KELUAR"
+        confirmationText="Keluar"
+      />
     </div>
   );
 }
