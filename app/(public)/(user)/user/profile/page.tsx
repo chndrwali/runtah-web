@@ -1,5 +1,5 @@
 import { ProfileSection } from "@/modules/public/ui/sections/profile-section";
-import { HydrateClient, prefetch } from "@/trpc/server";
+import { HydrateClient, prefetch, trpc } from "@/trpc/server";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -7,7 +7,7 @@ export const metadata: Metadata = {
 };
 
 export default async function Page() {
-  await prefetch;
+  await prefetch(trpc.auth.getProfile.queryOptions());
 
   return (
     <HydrateClient>

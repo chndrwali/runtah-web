@@ -1,12 +1,12 @@
 import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { admin } from "better-auth/plugins";
-// import { Resend } from "resend";
+import { Resend } from "resend";
 import prisma from "@/lib/prisma";
 import config from "@/lib/config-env";
 
 const isProduction = process.env.NODE_ENV === "production";
-// const resend = new Resend(config.env.resendApiKey);
+const resend = new Resend(config.env.resendApiKey);
 
 export const auth = betterAuth({
   database: prismaAdapter(prisma, {
@@ -20,27 +20,27 @@ export const auth = betterAuth({
     minPasswordLength: 8,
     requireEmailVerification: false,
     autoSignIn: false,
-    // sendResetPassword: async ({ user, url }) => {
-    //   await resend.emails.send({
-    //     from: "Candra<no-reply@resend.dev>",
-    //     to: user.email,
-    //     subject: "Reset Password Kamu",
-    //     html: `
-    //       <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 480px; margin: 0 auto; padding: 32px; background: #ffffff; border-radius: 8px;">
-    //         <h2 style="margin: 0 0 16px; font-size: 20px; color: #111;">Reset Password</h2>
-    //         <p style="margin: 0 0 24px; color: #555; line-height: 1.6;">
-    //           Hai <strong>${user.name || "User"}</strong>, kami menerima permintaan untuk mengatur ulang password akun kamu. Klik tombol di bawah untuk melanjutkan:
-    //         </p>
-    //         <a href="${url}" style="display: inline-block; padding: 12px 28px; background: #e84535; color: #fff; text-decoration: none; border-radius: 4px; font-weight: 600;">
-    //           Reset Password
-    //         </a>
-    //         <p style="margin: 24px 0 0; font-size: 13px; color: #999; line-height: 1.5;">
-    //           Jika kamu tidak meminta reset password, abaikan email ini. Link ini akan kedaluwarsa dalam 1 jam.
-    //         </p>
-    //       </div>
-    //     `,
-    //   });
-    // },
+    sendResetPassword: async ({ user, url }) => {
+      await resend.emails.send({
+        from: "Candra<no-reply@resend.dev>",
+        to: user.email,
+        subject: "Reset Password Kamu",
+        html: `
+          <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 480px; margin: 0 auto; padding: 32px; background: #ffffff; border-radius: 8px;">
+            <h2 style="margin: 0 0 16px; font-size: 20px; color: #111;">Reset Password</h2>
+            <p style="margin: 0 0 24px; color: #555; line-height: 1.6;">
+              Hai <strong>${user.name || "User"}</strong>, kami menerima permintaan untuk mengatur ulang password akun kamu. Klik tombol di bawah untuk melanjutkan:
+            </p>
+            <a href="${url}" style="display: inline-block; padding: 12px 28px; background: #e84535; color: #fff; text-decoration: none; border-radius: 4px; font-weight: 600;">
+              Reset Password
+            </a>
+            <p style="margin: 24px 0 0; font-size: 13px; color: #999; line-height: 1.5;">
+              Jika kamu tidak meminta reset password, abaikan email ini. Link ini akan kedaluwarsa dalam 1 jam.
+            </p>
+          </div>
+        `,
+      });
+    },
   },
   session: {
     expiresIn: 60 * 60 * 24 * 1, // 1 days

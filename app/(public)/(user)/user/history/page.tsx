@@ -8,9 +8,10 @@ export const metadata: Metadata = {
 };
 
 export default async function Page() {
-  await prefetch(
-    trpc.history.getAll.queryOptions({ page: 1, limit: LIMIT_TABLE }),
-  );
+  await Promise.all([
+    prefetch(trpc.history.getAll.queryOptions({ page: 1, limit: LIMIT_TABLE })),
+    prefetch(trpc.history.getStats.queryOptions()),
+  ]);
 
   return (
     <HydrateClient>

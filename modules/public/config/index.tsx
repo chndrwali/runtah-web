@@ -89,7 +89,7 @@ export const searchItems: SearchItem[] = [
     shortcut: ["r", "r"],
   },
   {
-    title: "Tuker Poin",
+    title: "Tukar Poin",
     url: "/user/points",
     group: "Pages",
     icon: Gift,

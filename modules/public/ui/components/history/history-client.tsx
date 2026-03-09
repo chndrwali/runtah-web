@@ -33,7 +33,7 @@ export function HistoryClient() {
   >("ALL");
 
   const trpcSortBy = sorting.length > 0 ? sorting[0].id : "createdAt";
-  const trpcSortOrder = sorting.length > 0 && sorting[0].desc ? "desc" : "asc";
+  const trpcSortOrder = sorting.length > 0 && sorting[0].desc ? "asc" : "desc";
 
   const { data: historyData, isLoading } = useQuery(
     trpc.history.getAll.queryOptions({
