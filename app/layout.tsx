@@ -42,8 +42,16 @@ export const metadata: Metadata = {
     "Poin Sampah",
     "Lingkungan",
     "Go Green",
+    "Bank Sampah",
+    "Waste Classification",
+    "Recycle Reward",
+    "AI Waste Sorting",
+    "Pengelolaan Sampah",
+    "Peta Bank Sampah",
   ],
   authors: [{ name: "Robah Team" }],
+  creator: "Robah Team",
+  publisher: "Robah",
   openGraph: {
     type: "website",
     locale: "id_ID",
@@ -67,6 +75,9 @@ export const metadata: Metadata = {
     description:
       "Wujudkan kota yang lebih hijau dengan klasifikasi sampah berbasis AI.",
     images: ["/img/illustration.gif"],
+  },
+  alternates: {
+    canonical: config.env.nextPublicUrl,
   },
 };
 

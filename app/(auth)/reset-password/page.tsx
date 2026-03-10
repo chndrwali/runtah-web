@@ -5,7 +5,8 @@ import { ResetPasswordForm } from "@/modules/auth/ui/form/reset-password-form";
 
 export const metadata: Metadata = {
   title: "Reset Password",
-  description: "Set a new password for your portfolio admin account.",
+  description:
+    "Buat kata sandi baru untuk mengamankan akun Robah Anda dan lanjutkan berkontribusi pada lingkungan yang lebih bersih.",
   robots: { index: false, follow: false },
 };
 

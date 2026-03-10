@@ -1,8 +1,10 @@
+import { Metadata } from "next";
 import { AuthForm } from "@/modules/auth/ui/form";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Login",
-  description: "Login to your account",
+  description:
+    "Masuk ke akun Robah Anda untuk mulai mengklasifikasi sampah, mengumpulkan poin, dan berkontribusi pada lingkungan yang lebih bersih.",
   robots: { index: false, follow: false },
 };
 

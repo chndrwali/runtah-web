@@ -1,156 +1,151 @@
-# Robah: Solusi Cerdas Klasifikasi Sampah ♻️
+<div align="center">
+
+# ♻️ Robah — Bandung Bersih, Mulai dari Genggamanmu
 
 ![Robah Illustration](public/img/illustration.gif)
+
+[![GitHub Stars](https://img.shields.io/github/stars/chndrwali/runtah-web?style=for-the-badge&logo=github&color=264653)](https://github.com/chndrwali/runtah-web/stargazers)
+[![GitHub Forks](https://img.shields.io/github/forks/chndrwali/runtah-web?style=for-the-badge&logo=github&color=2a9d8f)](https://github.com/chndrwali/runtah-web/network/members)
+[![License MIT](https://img.shields.io/github/license/chndrwali/runtah-web?style=for-the-badge&color=e9c46a)](LICENSE)
+
+**Platform klasifikasi sampah berbasis AI untuk mendorong kebiasaan daur ulang melalui sistem Poin Reward.**
 
 **Robah** adalah platform inovatif berbasis web yang dirancang untuk membantu masyarakat mewujudkan lingkungan yang lebih hijau dan bersih melalui manajemen pengelolaan sampah yang terpadu. Dengan memanfaatkan teknologi **AI (Artificial Intelligence)**, Robah memudahkan klasifikasi jenis sampah secara instan—membantu pengguna memilah sampah organik, anorganik, hingga jenis bahan spesifik (seperti logam, kaca, dan plastik) dengan cepat dan akurat.
 
 Tujuan utama dari sistem ini adalah **mendorong kebiasaan daur ulang** dengan memberikan **Poin Reward** kepada pengguna untuk setiap sampah yang berhasil di-scan dan disalurkan.
 
+[🌐 Live Demo](https://robah.vercel.app) · [🐛 Report Bug](https://github.com/chndrwali/runtah-web/issues) · [✨ Request Feature](https://github.com/chndrwali/runtah-web/issues)
+
+</div>
+
 ---
 
 ## 🌟 Fitur Utama
 
-- **Scan Sampah dengan AI**: Integrasi Artificial Intelligence untuk mendeteksi dan mengkategorikan sampah secara real-time hanya dengan mengunggah atau memotret sampah menggunakan kamera perangkat.
-- **Sistem Poin & Katalog Hadiah (Reward)**: Setiap sampah yang discan dan divalidasi akan dikonversi menjadi poin yang nantinya bisa ditukarkan dengan berbagai _voucher_ atau hadiah di Katalog Reward.
-- **Peta Titik Kumpul (Drop-off Maps)**: Bantu temukan lokasi bank sampah atau tempat pembuangan terdekat di area Anda.
-- **Dashboard Personal**: Lacak secara langsung total poin yang dikumpulkan, sejarah riwayat transaksi sampah yang telah diselamatkan, hingga total berat (kg) sampah yang Anda daur ulang.
-- **Responsive & Modern UI**: Antarmuka modern yang nyaman (mendukung mode terang dan gelap), memberikan alur yang sangat mudah dinavigasi oleh pengguna dari semua kalangan.
+| Fitur                        | Deskripsi                                                                       |
+| ---------------------------- | ------------------------------------------------------------------------------- |
+| 🤖 **Scan Sampah dengan AI** | Klasifikasi jenis sampah secara real-time menggunakan kamera atau upload gambar |
+| 🎁 **Sistem Poin & Reward**  | Kumpulkan poin dari setiap sampah yang di-scan, tukarkan dengan voucher/hadiah  |
+| 🗺️ **Peta Titik Kumpul**     | Temukan lokasi bank sampah atau drop-off point terdekat                         |
+| 📊 **Dashboard Personal**    | Lacak total poin, riwayat transaksi, dan berat sampah yang didaur ulang         |
+| 🌗 **Light & Dark Mode**     | Antarmuka modern yang responsif dengan dukungan tema terang & gelap             |
 
 ---
 
-## 🛠️ Stack Teknologi (Tech Stack)
+## 🛠️ Tech Stack
 
-Aplikasi ini dibangun dengan _best practices_ menggunakan teknologi ekosistem modern web:
-
-- **Framework Core:** [Next.js 16](https://nextjs.org/) (App Router, React 19)
-- **Styling:** [Tailwind CSS v4](https://tailwindcss.com/) & [shadcn/ui](https://ui.shadcn.com/)
-- **API & Type Safety:** [tRPC](https://trpc.io/) terintegrasi secara _end-to-end_ (E2E) dengan backend
-- **Database ORM:** [Prisma](https://www.prisma.io/)
-- **Autentikasi:** Better Auth (Session based / Server Actions)
-- **Komponen Ekstra:** UploadThing (File Uploads), React Query (Data Fetching), Lucide React (Icons)
-- **Deployment:** Vercel
+| Layer           | Teknologi                                                                         |
+| --------------- | --------------------------------------------------------------------------------- |
+| **Framework**   | [Next.js 16](https://nextjs.org/) (App Router, React 19)                          |
+| **Styling**     | [Tailwind CSS v4](https://tailwindcss.com/) & [shadcn/ui](https://ui.shadcn.com/) |
+| **API**         | [tRPC](https://trpc.io/) (End-to-end type safety)                                 |
+| **Database**    | PostgreSQL + [Prisma ORM](https://www.prisma.io/)                                 |
+| **Auth**        | Better Auth (Session-based)                                                       |
+| **File Upload** | UploadThing                                                                       |
+| **Animation**   | GSAP & Motion                                                                     |
+| **Maps**        | Leaflet + React Leaflet                                                           |
+| **Deployment**  | Vercel                                                                            |
 
 ---
 
-## 🚀 Panduan Memulai (Getting Started)
+## 🚀 Getting Started
 
-Ikuti langkah-langkah di bawah ini untuk menjalankan proyek ini secara lokal di mesin Anda.
+### Persyaratan
 
-### 1. Persyaratan Sistem
+- **Node.js** ≥ 20.x
+- **npm** / yarn / pnpm
+- **PostgreSQL** (lokal atau cloud — Supabase/Neon)
 
-Pastikan Anda telah menginstal:
-
-- Node.js (Minimal versi 20.x)
-- NPM atau Yarn atau pnpm
-- Database PostgreSQL (Lokal atau layanan cloud seperti Supabase/Neon)
-
-### 2. Kloning Repositori
+### Instalasi
 
 ```bash
+# 1. Clone repo
 git clone https://github.com/chndrwali/runtah-web.git
 cd runtah-web
-```
 
-### 3. Instalasi Dependensi
-
-```bash
+# 2. Install dependencies
 npm install
-# atau
-yarn install
-# atau
-pnpm install
+
+# 3. Setup environment variables
+cp .env.example .env
+# Edit .env sesuai konfigurasi database & API key Anda
 ```
 
-### 4. Konfigurasi Environment (Variabel Lingkungan)
-
-Buat file `.env` di direktori _root_ (Anda bisa menggunakan `.env.example` sebagai referensi jika tersedia), dan atur variabel berikut:
+### Konfigurasi Environment
 
 ```env
-# Koneksi Database PostgreSQL
 DATABASE_URL="postgresql://user:password@localhost:5432/robah_db"
-
-# Secret Keys untuk Autentikasi / Sesi (bisa generate string acak)
 BETTER_AUTH_SECRET="your-super-secret-key-here"
 BETTER_AUTH_URL=http://localhost:3000
-
-# (Opsional) API Key Provider Eksternal (UploadThing, dll)
 NEXT_PUBLIC_URL="http://localhost:3000"
+
+# (Opsional)
 RESEND_API_KEY=""
 UPLOADTHING_TOKEN=""
-
 ```
 
-### 5. Inisialisasi Database (Prisma)
-
-Migrasi skema database Prisma ke server PostgreSQL dan buat _client_:
+### Jalankan
 
 ```bash
+# Inisialisasi database
 npx prisma generate
 npx prisma db push
 
-# (Opsional) Jika Anda ingin melihat isi database secara visual melalui browser:
-npx prisma studio
-```
-
-### 6. Jalankan Development Server
-
-```bash
+# Jalankan development server
 npm run dev
-# atau
-yarn dev
-# atau
-pnpm dev
 ```
 
-Buka [http://localhost:3000](http://localhost:3000) pada browser Anda untuk melihat hasilnya.
+Buka [http://localhost:3000](http://localhost:3000) di browser.
 
 ---
 
-## 📂 Struktur Folder Utama
+## 📂 Struktur Folder
 
 ```plaintext
 runtah-web/
-├── app/                  # Next.js 16 App Router (Pages, Layouts, API Routes)
-│   ├── (public)/         # Halaman untuk end-user (Landing page & User Dashboard)
-│   ├── (admin)/          # CMS Dashboard (Manajemen sistem untuk admin)
-│   └── (auth)/           # Pages untuk Login, Register & Reset Password
-├── components/           # Reusable UI components (shadcn ui & custom components)
-├── lib/                  # Utility functions, konfigurasi Env, formatters
-├── modules/              # Pemisahan fitur (Public UI & Admin UI sections)
-├── prisma/               # Schema Database dan file migrasi
-├── public/               # Static assets (gambar, favicon, *illustration.gif*)
-├── trpc/                 # Pengaturan routing, context, & client tRPC
-└── server/               # Business logic backend (Implementasi Router tRPC)
+├── app/                  # Next.js 16 App Router
+│   ├── (public)/         # Halaman publik (Landing & User Dashboard)
+│   ├── (admin)/          # CMS Dashboard untuk admin
+│   ├── (auth)/           # Login, Register, Forgot/Reset Password
+│   └── onboarding/       # Onboarding flow untuk user baru
+├── components/           # Reusable UI components (shadcn/ui & custom)
+├── hooks/                # Custom React hooks (session, auth, dll.)
+├── lib/                  # Utility functions, konfigurasi env, formatters
+├── modules/              # Pemisahan fitur (Public, Admin, Auth sections)
+├── prisma/               # Schema database & file migrasi
+├── public/               # Static assets (gambar, favicon, model AI)
+├── trpc/                 # Routing, context & client tRPC
+└── types/                # TypeScript type definitions
 ```
 
 ---
 
-## 🛡️ Best Practices & Quality Assurance
+## 🛡️ Best Practices
 
-Proyek ini telah melalui proses penerapan _best practices_:
-
-- **SEO Optimization**: Seluruh halaman publik dan dashboard telah disematkan OpenGraph, Meta Deskripsi, & Title Tags dinamis untuk performa SEO _crawler_ yang optimal.
-- **Semantic UI/Dark Mode**: Seluruh palet warna komponen (background, border, text) menggunakan Tailwind variabel semantic (misal: `bg-card`, `text-primary-foreground`) sehingga memastikan tema _Dark Mode_ dan _Light Mode_ konsisten tersinkronisasi.
-- **Type Safety**: Skema Prisma (Database) dan sisi frontend React berbagi tipe data melalui perantara tRPC, menyingkirkan isu "tipe tidak cocok" saat iterasi pengembangan.
+- **SEO Optimization** — OpenGraph, Meta Description, Twitter Cards, dan Title Tags dinamis di seluruh halaman
+- **Type Safety** — Prisma schema + tRPC untuk tipe data E2E yang konsisten
+- **Semantic UI** — Tailwind CSS variabel semantik untuk Light/Dark Mode yang tersinkronisasi
 
 ---
 
 ## 🤝 Kontribusi
 
-Kami sangat terbuka untuk kontribusi!
-
-1. Lakukan _Follow_ dan _Fork_ pada repo ini.
-2. Buat _branch_ fitur Anda (`git checkout -b feature/FiturKeren`).
-3. _Commit_ perubahan Anda (`git commit -m 'Menambahkan FiturKeren'`).
-4. Lakukan _Push_ ke _branch_ (`git push origin feature/FiturKeren`).
-5. Buka **Pull Request** ke branch utama repositori ini.
+1. **Fork** repositori ini
+2. Buat branch fitur (`git checkout -b feature/FiturKeren`)
+3. Commit perubahan (`git commit -m 'Menambahkan FiturKeren'`)
+4. Push ke branch (`git push origin feature/FiturKeren`)
+5. Buka **Pull Request**
 
 ---
 
-## 📄 Lisensi (License)
+## 📄 Lisensi
 
-Distributed under the MIT License. See `LICENSE` for more information.
+Didistribusikan di bawah Lisensi MIT. Lihat [`LICENSE`](LICENSE) untuk informasi lebih lanjut.
 
 ---
+
+<div align="center">
 
 _Dikembangkan dengan ❤️ untuk masa depan lingkungan yang lebih baik._
+
+</div>

@@ -3,7 +3,8 @@ import { ForgotPasswordForm } from "@/modules/auth/ui/form/forgot-password-form"
 
 export const metadata: Metadata = {
   title: "Forgot Password",
-  description: "Reset your password for the portfolio admin panel.",
+  description:
+    "Lupa kata sandi? Masukkan email Anda untuk menerima tautan reset password akun Robah.",
   robots: { index: false, follow: false },
 };
 
