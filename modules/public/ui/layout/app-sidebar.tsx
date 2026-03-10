@@ -147,7 +147,8 @@ export default function AppSidebar() {
                         tooltip={item.title}
                         isActive={
                           pathname === item.url ||
-                          pathname.startsWith(`${item.url}/`)
+                          (item.url !== "/user" &&
+                            pathname.startsWith(`${item.url}/`))
                         }
                         onMouseEnter={handleMouseEnter}
                         onMouseLeave={handleMouseLeave}
@@ -165,7 +166,8 @@ export default function AppSidebar() {
                               asChild
                               isActive={
                                 pathname === subItem.url ||
-                                pathname.startsWith(`${subItem.url}/`)
+                                (subItem.url !== "/user" &&
+                                  pathname.startsWith(`${subItem.url}/`))
                               }
                               onMouseEnter={(e) =>
                                 gsap.to(e.currentTarget, {
@@ -200,7 +202,8 @@ export default function AppSidebar() {
                     tooltip={item.title}
                     isActive={
                       pathname === item.url ||
-                      pathname.startsWith(`${item.url}/`)
+                      (item.url !== "/user" &&
+                        pathname.startsWith(`${item.url}/`))
                     }
                     onMouseEnter={handleMouseEnter}
                     onMouseLeave={handleMouseLeave}
